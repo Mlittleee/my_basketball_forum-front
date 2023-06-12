@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import App from './App.vue'
-//导入element-ui
-import ElementUI from 'element-ui';
+import ElementUI from 'element-ui'; //element-ui
 import 'element-ui/lib/theme-chalk/index.css';
-//导入全局样式
+import 'font-awesome/css/font-awesome.css'  //font-awesome
 import './assets/global.css';
-
+import axios from "axios";  //axios
+Vue.prototype.$axios = axios;
+Vue.prototype.$httpUrl = 'http://localhost:8088'
 Vue.use(ElementUI);
 
 Vue.config.productionTip = false

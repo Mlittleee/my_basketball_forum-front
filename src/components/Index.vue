@@ -6,21 +6,36 @@
   export default {
     name: 'Index',
     components: {Main, Aside,Header},
-
+    data() {
+      return {
+        isCollapse: false,
+        aside_width: "200px"
+      }
+    },
+    methods: {
+      doCollapse() {
+        this.isCollapse = !this.isCollapse
+        if(!this.isCollapse){//展开
+          this.aside_width = "200px";
+        }else{
+          this.aside_width = "64px";
+        }
+      }
+    }
   };
 </script>
 
 <template>
-  <!--边框-->
-  <el-container style="height: 100%; border: 1px solid #eee">
-    <el-aside width="200px" style="background-color: rgb(238, 241, 246); height: 100%">
-      <Aside></Aside>
+  <!--右侧边框-->
+  <el-container style="height: 100%; border: 1px solid #eee;margin-top: -1px;margin-left: -1px">
+    <el-aside :width="aside_width" style="background-color: rgb(238, 241, 246); height: 100% ;">
+      <Aside :isCollapse="isCollapse"></Aside>
     </el-aside>
 
     <!--首部区域-->
-    <el-container style="height: 100%;">
-      <el-header style="text-align: right; font-size: 20px; height: 80px">
-        <Header></Header>
+    <el-container style="height: 100%;margin-top: -1px">
+      <el-header style="text-align: right; font-size: 14px; height: 80px;border-bottom: gray 4px solid">
+        <Header @doCollapse="doCollapse"></Header>
       </el-header>
 
       <!--主界面-->
