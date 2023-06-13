@@ -7,7 +7,8 @@ import './assets/global.css';
 import axios from "axios";  //axios
 Vue.prototype.$axios = axios;
 Vue.prototype.$httpUrl = 'http://localhost:8088'
-Vue.use(ElementUI);
+//Vue.use(ElementUI);
+Vue.use(ElementUI, { size: 'large', zIndex: 3000 });
 
 Vue.config.productionTip = false
 
