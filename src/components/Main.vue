@@ -18,11 +18,11 @@
         rules: {
           userName: [
             {required: true, message: '请输入用户名', trigger: 'blur'},
-            {min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur'}
+            {min: 1, max: 20, message: '长度在 1 到 20 个字符', trigger: 'blur'}
           ],
           password: [
             {required: true, message: '请输入密码', trigger: 'blur'},
-            {min: 6, max: 20, message: '长度在 6 到 20 个字符', trigger: 'blur'}
+            {min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur'}
           ]
         }
         //下拉框搜索
@@ -40,7 +40,7 @@
       }
     },
     methods: {
-      //清空查询条件
+      //清空查询条件，这个函数要在add中使用
       resetForm() {
         this.$refs.form.resetFields();
       },
@@ -111,6 +111,9 @@
       },
       add() {
         this.DialogVisible = true;
+        this.$nextTick(() => {
+          this.resetForm();
+        })
       }
       },
     //create
