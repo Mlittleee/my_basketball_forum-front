@@ -67,31 +67,65 @@
           }
         })
       },
+      doSave() {
+        this.$axios.post(this.$httpUrl + "/user/save", this.form).then(res => res.data).then(res => {
+          if (res.code === 200) {
+            this.$message.success("新增用户成功！");
+            this.DialogVisible = false
+            this.loadPost()
+          } else {
+            this.DialogVisible = false
+            this.$message.error(res.msg);
+          }
+        })
+      },
+      doEdit() {
+        this.$axios.post(this.$httpUrl + "/user/update", this.form).then(res => res.data).then(res => {
+          if (res.code === 200) {
+            this.$message.success("修改用户成功！");
+            this.DialogVisible = false
+            this.loadPost()
+          } else {
+            this.DialogVisible = false
+            this.$message.error(res.msg);
+          }
+        })
+      },
       save() {
         //增加表单检查，如果不通过，不提交
         this.$refs.form.validate((valid) => {
           if (valid) {
-            this.$axios.post(this.$httpUrl + "/user/save", this.form).then(res => res.data).then(res => {
-              if (res.code === 200) {
-                this.$message.success("新增用户成功！");
-                this.DialogVisible = false
-                this.loadPost()
-              } else {
-                this.DialogVisible = false
-                this.$message.error(res.msg);
-              }
-            })
-          } else {
+            //用id是否已经存在来判断是新增还是修改
+            if (this.form.id) {
+              this.doEdit();
+            } else {
+              this.doSave();
+            }
+
+          }else {
             console.log('error submit!!');
             return false;
           }
         });
       },
-      handleEdit(index, row) {
-        console.log(index, row);
+      Edit(row) {
+        //编辑功能
+        this.DialogVisible = true;
+        this.$nextTick(() => {
+          this.form = row;
+        })
+
       },
-      handleDelete(index, row) {
-        console.log(index, row);
+      Delete(id) {
+        //删除功能
+        this.$axios.get(this.$httpUrl + "/user/delete?id=" + id).then(res => res.data).then(res => {
+          if (res.code === 200) {
+            this.$message.success("删除用户成功！");
+            this.loadPost()
+          } else {
+            this.$message.error(res.msg);
+          }
+        })
       },
       handleSizeChange(val) {
         console.log(`每页 ${val} 条`);
@@ -165,14 +199,21 @@
         </template>
       </el-table-column>
       <el-table-column prop="operate" label="操作" width="360">
+        <!--使用插槽来传递这一整行的数据-->
         <template slot-scope="scope">
           <el-button
-              size="small"
-              @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-          <el-button
-              size="small"
-              type="danger"
-              @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+              size="medium"
+              @click="Edit(scope.row)">编辑</el-button>
+          <el-popconfirm
+              confirm-button-text='确定'
+              cancel-button-text='不用了'
+              icon="el-icon-info"
+              icon-color="red"
+              title="确定删除吗？"
+              @confirm="Delete(scope.row.id)"
+          >
+            <el-button size="medium" type="danger" slot="reference" style="margin-left: 25px">删除</el-button>
+          </el-popconfirm>
         </template>
       </el-table-column>
     </el-table>
