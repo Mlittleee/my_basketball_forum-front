@@ -25,7 +25,8 @@ export function get(url, params) {
 //封装post方法
 export function post(url, params) {
     return new Promise((resolve, reject) => {
-        axios.post(url, QS.stringify(params))
+        //序列化参数
+        axios.post(url, JSON.stringify(params))
             .then(res => {
                 resolve(res.data)
             }).catch(err => {

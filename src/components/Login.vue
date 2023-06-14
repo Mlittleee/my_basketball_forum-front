@@ -5,32 +5,36 @@
         <h2>扑虎社区</h2>
       </div>
       <div class="form-data">
-        <el-form ref="form" :model="form" :rules="rules">
-          <el-form-item prop="username">
-            <el-input v-model="form.username" clearable placeholder="请输入账号"></el-input>
+        <el-form ref="loginform" :model="form" :rules="rules">
+          <el-form-item prop="userName">
+            <el-input v-model="form.userName" clearable placeholder="请输入账号"></el-input>
           </el-form-item>
           <el-form-item prop="password">
             <el-input v-model="form.password" clearable placeholder="请输入密码" show-password></el-input>
           </el-form-item>
         </el-form>
       </div>
-        <el-button type="primary" class="button" @click="login('form')">加入社区</el-button>
+        <el-button type="primary" class="button" @click="submit('loginform')">加入社区</el-button>
     </div>
   </div>
 </template>
 
 <script>
+import { login } from "@/api/user";
+import { mapState, mapActions } from "vuex";
+
+
 export default {
   name: "login",
   data() {
     return {
       form: {
-        password: "",
-        username: "",
+        userName: "",
+        password: ""
       },
       checked: false,
       rules: {
-        username: [
+        userName: [
           { required: true, message: "请输入用户名", trigger: "blur" },
           { min: 1, max: 20, message: "1-20个字符", trigger: "blur" },
         ],
@@ -41,15 +45,36 @@ export default {
       },
     };
   },
-  mounted() {
-    if(localStorage.getItem("news")){
-      this.form=JSON.parse(localStorage.getItem("news"))
-      this.checked=true
-    }
-  },
   methods: {
-    login(form) {
+    ...mapActions(["constructUser"]),
+    async submit(form) {
+      if(!form) return;
+      this.$refs.loginform.validate((valid) => {
+        if (valid) {
+          console.log(JSON.stringify(this.form))
+          login(this.form).then((res) => {
 
+            console.log(res)
+            //注意此处不再需要取res.data.data
+            if (res.code === 200) {
+              //登录成功则将user信息存入vuex(包括token)
+              this.constructUser(res.data);
+              //console.log(this.$store.state.user.token)
+              this.$message({message: "登录成功", type: "success",});
+              //进入首页
+              this.$router.push("/Home");
+
+            } else {
+              this.$message({
+                message: res.data.msg,
+                type: "error",
+              });
+            }
+          });
+        } else {
+          return false;
+        }
+      });
     }
   }
 };

@@ -7,7 +7,7 @@ import './assets/global.css';
 import axios from "axios";  //axios
 import VueRouter from "vue-router"; //vue-router
 import routes from "./router"; //路由配置文件
-import store from "./store";
+import store from "./store/index";
 
 Vue.prototype.$axios = axios;
 Vue.prototype.$httpUrl = 'http://localhost:8088'

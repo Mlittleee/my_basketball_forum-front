@@ -3,7 +3,8 @@
  * 提交的是状态state
  * */
 
-/*
-export const modifyAName = (state, name) => {
-    state.name = name
-}*/
+//将token保存到localStorage中
+export const constructUser = (state, user) => {
+    //用户
+    state.user = user;
+}

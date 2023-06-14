@@ -7,4 +7,7 @@
  * 或者通过context.state和context.getters来获取state和getters
 */
 //ES6精简写法(参数解构)
-export const modifyAName = ({commit}, name) => commit('modifyAName', name)
+//export const modifyAName = ({commit}, name) => commit('modifyAName', name)
+
+//用户登录
+export const constructUser = ({commit}, user) => commit('constructUser', user)

@@ -1,6 +1,7 @@
 import VueRouter from "vue-router";
 import Login from "@/components/Login.vue";
 import Index from "@/components/Index.vue";
+import Home from "@/components/Home.vue";
 
 const routes = [
     //重定向，默认登录页
@@ -12,6 +13,11 @@ const routes = [
     {
         path: "/login",
         component: Login
+    },
+    //首页
+    {
+        path: "/Home",
+        component: Home
     }
 ]
 

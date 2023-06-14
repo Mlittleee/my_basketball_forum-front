@@ -2,28 +2,28 @@
  * http.js文件用来对axios进行拦截，添加token
  * */
 import axios from "axios";
-import QS from 'qs'; // 引入qs模块，用来序列化post类型的数据
 import store from "@/store/index";
 
 axios.defaults.timeout = 10000; //设置请求时间
 axios.defaults.baseURL = 'http://localhost:8088'; //设置默认接口地址
 
 //post请求头的设置
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
+axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
 
 //请求拦截器
 axios.interceptors.request.use(
     config => {
         //判断是否存在token，如果存在的话，则每个http header都加上token，更新vueX中的token
         //如果不存在，则跳转到登录页面
-        if (store.state.user.token) {
+        if (store.state.user.token!=='') {
             config.headers.Authorization = `${store.state.user.token}`;
+            console.log(`${store.state.user.token}`)
         }
         return config;
     },
     error => {
         return Promise.error(error);
-    })
+})
 
 //响应拦截器
 axios.interceptors.response.use(
