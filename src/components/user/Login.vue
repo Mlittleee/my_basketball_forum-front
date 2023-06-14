@@ -1,20 +1,23 @@
 <template>
   <div class="body">
-    <div class="data">
+    <div class="data" style="margin-left: 78%; margin-top: 10%">
       <div class="text">
-        <h2>扑虎社区</h2>
+        <h1>扑虎社区</h1>
       </div>
       <div class="form-data">
         <el-form ref="loginform" :model="form" :rules="rules">
-          <el-form-item prop="userName">
+          <el-form-item prop="userName" style="font-size: large;margin-top: 60px">
             <el-input v-model="form.userName" clearable placeholder="请输入账号"></el-input>
           </el-form-item>
-          <el-form-item prop="password">
+          <el-form-item prop="password" style="margin-top: 50px">
             <el-input v-model="form.password" clearable placeholder="请输入密码" show-password></el-input>
           </el-form-item>
         </el-form>
       </div>
-        <el-button type="primary" class="button" @click="submit('loginform')">加入社区</el-button>
+        <el-button type="primary"
+                   class="button"
+                   style="margin-top: 40px; font-size: large"
+                   @click="submit('loginform')">加入社区</el-button>
     </div>
   </div>
 </template>
