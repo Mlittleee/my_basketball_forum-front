@@ -1,4 +1,7 @@
 <script>
+//导入api目录下user.js文件中的所有内容
+import {addUser} from "@/api/user";
+
   export default {
     name: 'Main',
     data() {
@@ -68,7 +71,8 @@
         })
       },
       doSave() {
-        this.$axios.post(this.$httpUrl + "/user/save", this.form).then(res => res.data).then(res => {
+        //调用api接口
+        addUser(this.form).then(res => res.data).then(res => {
           if (res.code === 200) {
             this.$message.success("新增用户成功！");
             this.DialogVisible = false

@@ -1,5 +1,6 @@
 import VueRouter from "vue-router";
 import Login from "@/components/Login";
+import Index from "@/components/Index.vue";
 
 const routes = [
     {
@@ -8,7 +9,7 @@ const routes = [
     },
     {
         path: "/login",
-        component: Login
+        component: Index
     }
 ]
 
