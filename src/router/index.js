@@ -11,7 +11,7 @@ const routes = [
     //登录页
     {
         path: "/login",
-        component: Index
+        component: Login
     }
 ]
 
