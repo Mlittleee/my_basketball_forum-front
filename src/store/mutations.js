@@ -8,3 +8,17 @@ export const constructUser = (state, user) => {
     //用户
     state.user = user;
 }
+
+//退出登录，清空token
+export const logout = (state) => {
+    state.user = {
+        id: '',
+        userName: '',
+        password: '',
+        status: '',
+        roleId: '',
+        token: ''
+    }
+    //清空缓存
+    localStorage.removeItem('token')
+}

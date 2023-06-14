@@ -85,7 +85,7 @@ export default {
   width: 100%;
   height: 100%;
   min-width: 1000px;
-  background-image: url("../assets/login.jpg");
+  background-image: url("../../assets/login.jpg");
   background-size: 100% 100%;
   background-position: center center;
   overflow: auto;
@@ -119,8 +119,8 @@ export default {
 
 /*ui*/
 /* /deep/ .el-form-item__label {
-  font-weight: bolder;
-  font-size: 15px;
+  front-weight: bolder;
+  front-size: 15px;
   text-align: left;
 }
 

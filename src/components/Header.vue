@@ -7,8 +7,7 @@
         //this.$router.push('/user');
       },
       logOut() {
-        console.log(222);
-        //this.$router.push('/login');
+        this.$router.push('/Home');
       },
       collapse() {
         this.$emit('doCollapse')
@@ -30,7 +29,7 @@
       <span style="font-size: 18px">王小虎</span><i class="fa fa-user" style="margin-left: 10px;font-size: 23px;color: #2c3e50" /></i>
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item @click.native="toUser">个人中心</el-dropdown-item>
-        <el-dropdown-item @click.native="logOut">退出登录</el-dropdown-item>
+        <el-dropdown-item @click.native="logOut">返回主页</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
   </div>

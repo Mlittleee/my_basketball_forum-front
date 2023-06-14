@@ -1,13 +1,13 @@
 import VueRouter from "vue-router";
-import Login from "@/components/Login.vue";
+import Login from "@/components/user/Login.vue";
 import Index from "@/components/Index.vue";
-import Home from "@/components/Home.vue";
+import Home from "@/components/home/Home.vue";
 
 const routes = [
     //重定向，默认登录页
     {
         path: "/",
-        redirect: "/login"
+        redirect: "/Login"
     },
     //登录页
     {
@@ -18,6 +18,19 @@ const routes = [
     {
         path: "/Home",
         component: Home
+        /*children: [
+            {
+
+            },
+            {
+
+            },
+        ]*/
+    },
+    // 后台管理系统首页
+    {
+        path: "/index",
+        component: Index,
     }
 ]
 

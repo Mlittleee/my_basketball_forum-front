@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import ElementUI from 'element-ui'; //element-ui
 import 'element-ui/lib/theme-chalk/index.css';
-import 'font-awesome/css/font-awesome.css'  //font-awesome
+import 'font-awesome/css/font-awesome.css'  //front-awesome
 import './assets/global.css';
 import axios from "axios";  //axios
 import VueRouter from "vue-router"; //vue-router
