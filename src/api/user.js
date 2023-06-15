@@ -8,3 +8,6 @@ export const login = (params) => post('/user/login', params)
 
 // 新增用户
 export const addUser = (params) => post('/user/save', params)
+
+// 列出所有用户
+export const listUser = (params) => get('/user/listAll', params)

@@ -16,12 +16,12 @@ axios.interceptors.request.use(
         //判断是否存在token，如果存在的话，则每个http header都加上token，更新vueX中的token
         //如果不存在，则跳转到登录页面
         if (store.state.user.token!=='') {
-            config.headers.Authorization = `${store.state.user.token}`;
-            console.log(`${store.state.user.token}`)
+            config.headers.Authorization = store.state.user.token;
+            //config.headers['Access-Control-Allow-Origin'] = '*/*';
         }
         return config;
     },
-    error => {
+    (error) => {
         return Promise.error(error);
 })
 
@@ -31,6 +31,7 @@ axios.interceptors.response.use(
         //如果返回的状态码为200，说明接口请求成功，可以正常拿到数据
         //否则的话抛出错误
         if (response.status === 200) {
+            console.log(response)
             return Promise.resolve(response);
         } else {
             return Promise.reject(response);

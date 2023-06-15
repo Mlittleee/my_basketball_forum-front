@@ -9,11 +9,12 @@ import VueRouter from "vue-router"; //vue-router
 import routes from "./router"; //路由配置文件
 import store from "./store/index";
 
+axios.defaults.withCredentials=true
 Vue.prototype.$axios = axios;
 Vue.prototype.$httpUrl = 'http://localhost:8088'
 Vue.use(ElementUI, { size: 'large', zIndex: 3000 });  //Vue.use(ElementUI);
 Vue.use(VueRouter);
-Vue.config.productionTip = false
+Vue.config.productionTip = true
 
 new Vue({
     router: routes,

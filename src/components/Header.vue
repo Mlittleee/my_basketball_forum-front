@@ -23,7 +23,7 @@
       <i class="el-icon-guide" style="font-size: 26px" @click="collapse"></i>
     </div>
     <div style="flex:1;text-align: center;font-size: 32px;">
-      <span>这是一个管理系统</span>
+      <span>扑虎篮球论坛管理员后台</span>
     </div>
     <el-dropdown>
       <span style="font-size: 18px">王小虎</span><i class="fa fa-user" style="margin-left: 10px;font-size: 23px;color: #2c3e50" /></i>

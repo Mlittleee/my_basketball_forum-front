@@ -1,6 +1,6 @@
 <script>
 //导入api目录下user.js文件中的所有内容
-import {addUser} from "@/api/user";
+import {addUser ,listUser} from "@/api/user";
 
   export default {
     name: 'Main',
@@ -48,7 +48,7 @@ import {addUser} from "@/api/user";
         this.$refs.form.resetFields();
       },
       loadGet() {
-        this.$axios.get(this.$httpUrl + "/user/listAll").then(res=>res.data).then(res=>{
+        listUser().then(res => res.data).then(res => {
           console.log(res)
         })
       },
@@ -62,11 +62,11 @@ import {addUser} from "@/api/user";
           }
         }).then(res=>res.data).then(res=>{
           console.log(res)
-          if (res.code === 200) {
+          if (res.data.code === 200) {
             this.tableData = res.data;
             this.total = res.total;
           }else{
-            this.$message.error(res.msg);
+            this.$message.error(res.data.msg);
           }
         })
       },

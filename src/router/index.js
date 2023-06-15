@@ -7,7 +7,7 @@ const routes = [
     //重定向，默认登录页
     {
         path: "/",
-        redirect: "/Login"
+        redirect: "/Home"
     },
     //登录页
     {
