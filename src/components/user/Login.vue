@@ -55,7 +55,7 @@ export default {
       this.$refs.loginform.validate((valid) => {
         if (valid) {
           //console.log(JSON.stringify(this.form))
-            (this.form).then((res) => {
+            login(this.form).then((res) => {
             console.log(res)
             //注意此处不再需要取res.data.data
             if (res.code === 200) {
