@@ -1,6 +1,6 @@
 <script>
 //导入api目录下user.js文件中的所有内容
-import {addUser ,listUser, listUserByPage} from "@/api/user";
+import {addUser ,listUser, listUserByPage, updateUser} from "@/api/user";
 
   export default {
     name: 'Main',
@@ -72,7 +72,7 @@ import {addUser ,listUser, listUserByPage} from "@/api/user";
       },
       doSave() {
         //调用api接口
-        addUser(this.form).then(res => res.data).then(res => {
+        addUser(this.form).then(res => {
           if (res.code === 200) {
             this.$message.success("新增用户成功！");
             this.DialogVisible = false
@@ -84,7 +84,7 @@ import {addUser ,listUser, listUserByPage} from "@/api/user";
         })
       },
       doEdit() {
-        this.$axios.post(this.$httpUrl + "/user/update", this.form).then(res => res.data).then(res => {
+        updateUser(this.form).then(res => {
           if (res.code === 200) {
             this.$message.success("修改用户成功！");
             this.DialogVisible = false
@@ -112,7 +112,7 @@ import {addUser ,listUser, listUserByPage} from "@/api/user";
           }
         });
       },
-      Edit(row) {
+      onEdit(row) {
         //编辑功能
         this.DialogVisible = true;
         this.$nextTick(() => {
@@ -120,14 +120,16 @@ import {addUser ,listUser, listUserByPage} from "@/api/user";
         })
 
       },
-      Delete(id) {
+      onDelete(id) {
+        //将id转换为Int类型
         //删除功能
-        this.$axios.get(this.$httpUrl + "/user/delete?id=" + id).then(res => res.data).then(res => {
-          if (res.code === 200) {
+        console.log(id)
+        this.$axios.get(this.$httpUrl + "/user/delete?id=" + id).then(res => {
+          if (res.data.code === 200) {
             this.$message.success("删除用户成功！");
             this.loadPost()
           } else {
-            this.$message.error(res.msg);
+            this.$message.error(res.data.msg);
           }
         })
       },
@@ -207,14 +209,14 @@ import {addUser ,listUser, listUserByPage} from "@/api/user";
         <template slot-scope="scope">
           <el-button
               size="medium"
-              @click="Edit(scope.row)">编辑</el-button>
+              @click="onEdit(scope.row)">编辑</el-button>
           <el-popconfirm
               confirm-button-text='确定'
               cancel-button-text='不用了'
               icon="el-icon-info"
               icon-color="red"
               title="确定删除吗？"
-              @confirm="Delete(scope.row.id)"
+              @confirm="onDelete(scope.row.id)"
           >
             <el-button size="medium" type="danger" slot="reference" style="margin-left: 25px">删除</el-button>
           </el-popconfirm>

@@ -17,3 +17,6 @@ export const deleteUser = (params) => post('/user/delete', params)
 
 // 用户分页查询
 export const listUserByPage = (params) => post('/user/findPage', params)
+
+// 编辑更新用户
+export const updateUser = (params) => post('/user/update', params)
