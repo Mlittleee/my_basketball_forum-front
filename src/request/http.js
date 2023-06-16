@@ -5,7 +5,7 @@ import axios from "axios";
 import store from "@/store/index";
 
 axios.defaults.timeout = 10000; //设置请求时间
-axios.defaults.baseURL = 'http://localhost:8088'; //设置默认接口地址
+axios.defaults.baseURL = '/api'; //设置默认接口地址
 
 //post请求头的设置
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
@@ -17,7 +17,6 @@ axios.interceptors.request.use(
         //如果不存在，则跳转到登录页面
         if (store.state.user.token!=='') {
             config.headers.Authorization = store.state.user.token;
-            //config.headers['Access-Control-Allow-Origin'] = '*/*';
         }
         return config;
     },
@@ -31,7 +30,6 @@ axios.interceptors.response.use(
         //如果返回的状态码为200，说明接口请求成功，可以正常拿到数据
         //否则的话抛出错误
         if (response.status === 200) {
-            console.log(response)
             return Promise.resolve(response);
         } else {
             return Promise.reject(response);

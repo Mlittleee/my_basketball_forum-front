@@ -33,7 +33,7 @@ const routes = [
         path: "/index",
         component: Index,
     },
-    //测试富文本编辑器
+    //富文本编辑器
     {
         path: "/editor",
         component: myEditor

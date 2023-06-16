@@ -11,3 +11,9 @@ export const addUser = (params) => post('/user/save', params)
 
 // 列出所有用户
 export const listUser = (params) => get('/user/listAll', params)
+
+// 删除用户
+export const deleteUser = (params) => post('/user/delete', params)
+
+// 用户分页查询
+export const listUserByPage = (params) => post('/user/findPage', params)

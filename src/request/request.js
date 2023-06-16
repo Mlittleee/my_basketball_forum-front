@@ -10,7 +10,6 @@ export function get(url, params) {
         axios.get(url, {
             params: params
         }).then(res => {
-            console.log(url)
             resolve(res.data)
         }).catch(err => {
             reject(err.data)

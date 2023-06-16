@@ -1,6 +1,6 @@
 <script>
 //导入api目录下user.js文件中的所有内容
-import {addUser ,listUser} from "@/api/user";
+import {addUser ,listUser, listUserByPage} from "@/api/user";
 
   export default {
     name: 'Main',
@@ -53,21 +53,21 @@ import {addUser ,listUser} from "@/api/user";
         })
       },
       loadPost() {
-        this.$axios.post(this.$httpUrl + "/user/findPage", {
+        listUserByPage({
           pageSize: this.pageSize,
           pageNum: this.pageNum,
           param: {
             userName: this.userName
             //sex: this.sex
           }
-        }).then(res=>res.data).then(res=>{
+        }).then(res=>{
           console.log(res)
-          if (res.data.code === 200) {
+          //if (res.data.=== 200) {
             this.tableData = res.data;
             this.total = res.total;
-          }else{
-            this.$message.error(res.data.msg);
-          }
+          //}else{
+            //this.$message.error(res.data.msg);
+          //}
         })
       },
       doSave() {
