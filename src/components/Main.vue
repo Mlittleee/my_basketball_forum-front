@@ -13,10 +13,13 @@ import {addUser ,listUser, listUserByPage, updateUser} from "@/api/user";
         userName: "",
         DialogVisible: false,
         form: {
+          userId: null,
           userName: "",
           password: "",
           status: 1,
-          roleId: 1
+          gender: 1,
+          roleId: 1,
+          email: "",
         },
         rules: {
           userName: [
@@ -100,7 +103,7 @@ import {addUser ,listUser, listUserByPage, updateUser} from "@/api/user";
         this.$refs.form.validate((valid) => {
           if (valid) {
             //用id是否已经存在来判断是新增还是修改
-            if (this.form.id) {
+            if (this.form.userId) {
               this.doEdit();
             } else {
               this.doSave();
@@ -120,12 +123,12 @@ import {addUser ,listUser, listUserByPage, updateUser} from "@/api/user";
         })
 
       },
-      onDelete(id) {
-        //将id转换为Int类型
+      onDelete(userId) {
         //删除功能
-        console.log(id)
-        this.$axios.get(this.$httpUrl + "/user/delete?id=" + id).then(res => {
+        console.log(userId)
+        this.$axios.get(this.$httpUrl + "/user/delete?id=" + userId).then(res => {
           if (res.data.code === 200) {
+
             this.$message.success("删除用户成功！");
             this.loadPost()
           } else {
@@ -186,7 +189,7 @@ import {addUser ,listUser, listUserByPage, updateUser} from "@/api/user";
               :header-cell-style="{'background-color':'#F5F7FA','color':'#909399'}"
               border
     >
-      <el-table-column prop="id" label="ID" width="170">
+      <el-table-column prop="userId" label="ID" width="170">
       </el-table-column>
       <el-table-column prop="userName" label="姓名" width="280">
       </el-table-column>
@@ -216,13 +219,14 @@ import {addUser ,listUser, listUserByPage, updateUser} from "@/api/user";
               icon="el-icon-info"
               icon-color="red"
               title="确定删除吗？"
-              @confirm="onDelete(scope.row.id)"
+              @confirm="onDelete(scope.row.userId)"
           >
             <el-button size="medium" type="danger" slot="reference" style="margin-left: 25px">删除</el-button>
           </el-popconfirm>
         </template>
       </el-table-column>
     </el-table>
+    <!--分页-->
     <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -232,6 +236,7 @@ import {addUser ,listUser, listUserByPage, updateUser} from "@/api/user";
         layout="total, sizes, prev, pager, next, jumper"
         :total="total">
     </el-pagination>
+    <!--编辑用户信息弹出框-->
     <el-dialog
         title="提示"
         :visible.sync="DialogVisible"
@@ -246,6 +251,16 @@ import {addUser ,listUser, listUserByPage, updateUser} from "@/api/user";
           <el-form-item label="密码" prop="password">
             <el-col :span="15">
               <el-input v-model="form.password"></el-input>
+            </el-col>
+          </el-form-item>
+          <el-form-item label="性别" prop="gender">
+            <el-col :span="15">
+              <el-input v-model="form.gender"></el-input>
+            </el-col>
+          </el-form-item>
+          <el-form-item label="邮箱" prop="email">
+            <el-col :span="15">
+              <el-input v-model="form.email"></el-input>
             </el-col>
           </el-form-item>
           <el-form-item label="角色">

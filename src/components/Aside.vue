@@ -1,9 +1,12 @@
 <script>
+import store from "@/store/index";
+
   export default {
     name: 'Aside',
     data() {
       return {
         //isCollapse: false
+
       }
     },
     props: {
