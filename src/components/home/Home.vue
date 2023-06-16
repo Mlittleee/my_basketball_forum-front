@@ -21,7 +21,7 @@ import {mapMutations} from "vuex";
         this.$router.push("/Login");
       },
       enterAdmin() {
-        this.$router.push("/Index");
+        this.$router.push("/Admin");
       },
       handleSelect(key, keyPath) {
         console.log(key, keyPath);

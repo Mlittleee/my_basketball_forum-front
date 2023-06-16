@@ -3,7 +3,7 @@
 import {addUser ,listUser, listUserByPage, updateUser} from "@/api/user";
 
   export default {
-    name: 'Main',
+    name: 'adminUser',
     data() {
       return {
         tableData: [],
