@@ -1,6 +1,6 @@
 <script>
   export default {
-    name: "MainCategory"
+    name: "MainComment"
 
 
 
@@ -8,7 +8,7 @@
 </script>
 
 <template>
-  <router-view></router-view>
+  <h1>这里用来管理评论</h1>
 </template>
 
 <style scoped>

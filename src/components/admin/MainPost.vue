@@ -1,14 +1,13 @@
 <script>
   export default {
-    name: "MainCategory"
+    name: "MainPost"
 
 
-
-  }
+}
 </script>
 
 <template>
-  <router-view></router-view>
+  <h1>这里用来管理文章</h1>
 </template>
 
 <style scoped>

@@ -27,14 +27,14 @@
 
 <template>
   <!--右侧边框-->
-  <el-container style="height: 100%; border: 1px solid #eee;margin-top: -1px;margin-left: -1px">
-    <el-aside :width="aside_width" style="background-color: rgb(238, 241, 246); height: 100% ;">
-      <Aside :isCollapse="isCollapse"></Aside>
+  <el-container style="height: 100%; border: 1px solid #eee;margin-top: -1px;margin-left: -1px;">
+    <el-aside :width="aside_width" style="height: 100% ;">
+      <Aside :isCollapse="isCollapse" ></Aside>
     </el-aside>
 
     <!--首部区域-->
-    <el-container style="height: 100%;margin-top: -1px">
-      <el-header style="text-align: right; font-size: 14px; height: 80px;border-bottom: gray 4px solid">
+    <el-container style="height: 100%;margin-top: -1px; background-color: crimson">
+      <el-header style="text-align: right; font-size: 14px; height: 80px;border-bottom: gray 4px solid;">
         <Header @doCollapse="doCollapse"></Header>
       </el-header>
 
