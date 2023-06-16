@@ -9,26 +9,44 @@
                      @click="onBack">
             返回主页</el-button>
       </el-header>
+
       <el-container class="content-container">
+        <vue-particles
+            class="userCenter-bg"
+            color="#Ffffff"
+            :particleOpacity="1.7"
+            :particlesNumber="300"
+            shape-type="circle"
+            :particleSize="4"
+            linesColor="#Ffffff"
+            :linesWidth="1"
+            :lineLinked="true"
+            :lineOpacity="0.4"
+            :linesDistance="150"
+            :moveSpeed="4"
+            :hoverEffect="true"
+            hoverMode="grab"
+            :clickEffect="true"
+            clickMode="push"
+        ></vue-particles>
 
-        <el-aside width="300px" class="custom-aside">
+        <el-aside width="400px">
           <div class="user-profile">
-            <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" size='80px'></el-avatar>
-            <!--用户信息展示-->
-
-
+            <el-avatar size="large" src="https://avatars0.githubusercontent.com/u/20942571?s=460&v=4"></el-avatar>
+            <div class="userInfo">
+              <span>用户名：{{this.$store.state.user.username}}</span>
+            </div>
           </div>
         </el-aside>
 
-        <el-main class="custom-main">
-          <el-input placeholder="请输入搜索内容" class="search-input"></el-input>
-          <el-button type="primary" icon="el-icon-search">搜索</el-button>
-          <br>
+        <el-main>
+          <p>这里是主页面</p>
         </el-main>
       </el-container>
     </el-container>
   </div>
 </template>
+//import store from "../../store/index.js";
 
 <script>
 export default {
@@ -49,6 +67,11 @@ export default {
 
 
 <style scoped>
+.userCenter-bg{
+  width: 190px;
+  height: 100%;
+  background: firebrick;
+}
 
 .container {
   height: 100vh;
@@ -68,17 +91,6 @@ export default {
   color: #333;
   line-height: 60px;
   padding: 0;
-}
-
-.content-container {
-  flex: 1;
-  margin: 0 140px;
-}
-
-.el-aside {
-  background-color: #F7F7F7;
-  color: #333;
-  text-align: center;
 }
 
 .user-profile {
