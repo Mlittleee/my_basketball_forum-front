@@ -3,8 +3,8 @@
     name: 'Header',
     methods: {
       toUser() {
-        console.log(111);
-        //this.$router.push('/user');
+        //console.log(111);
+        this.$router.push('/user');
       },
       logOut() {
         this.$router.push('/Home');

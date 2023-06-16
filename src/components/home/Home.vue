@@ -14,7 +14,7 @@ import {mapMutations} from "vuex";
       ...mapMutations(["logout"]),
       toUser() {
         this.$message({message: "进入个人中心", type: "success",});
-        //this.$router.push("/User");
+        this.$router.push("/user");
       },
       logOut() {
         this.logout();

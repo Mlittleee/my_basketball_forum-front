@@ -12,6 +12,7 @@ import teach from "@/components/admin/Category/teach.vue";
 import CUBA from "@/components/admin/Category/CUBA.vue";
 import CBA from "@/components/admin/Category/CBA.vue";
 import wilkins from "@/components/admin/Category/wilkins.vue";
+import UserCenter from "@/components/user/UserCenter.vue";
 
 
 const routes = [
@@ -87,6 +88,11 @@ const routes = [
     {
         path: "/editor",
         component: myEditor
+    },
+    //用户中心
+    {
+        path: "/user",
+        component: UserCenter
     }
 ]
 
