@@ -1,8 +1,9 @@
 import VueRouter from "vue-router";
 import Login from "@/components/user/Login.vue";
-import Index from "@/components/Index.vue";
+import Admin from "@/components/admin/Admin.vue";
 import Home from "@/components/home/Home.vue";
 import myEditor from "@/components/home/myEditor.vue";
+import MainUser from "@/components/admin/MainUser.vue";
 
 const routes = [
     //重定向，默认登录页
@@ -30,8 +31,13 @@ const routes = [
     },
     // 后台管理系统首页
     {
-        path: "/index",
-        component: Index,
+        path: "/Admin",
+        component: Admin,
+        children: [{
+                path: "/Admin/adminUser",
+                component: MainUser
+        }
+        ]
     },
     //富文本编辑器
     {

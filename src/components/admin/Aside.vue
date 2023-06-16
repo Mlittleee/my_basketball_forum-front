@@ -1,5 +1,5 @@
 <script>
-import store from "@/store/index";
+
 
   export default {
     name: 'Aside',
@@ -21,6 +21,7 @@ import store from "@/store/index";
 
 <template>
   <el-menu
+      :router="true"
       background-color="#545c64"
       text-color="#fff"
       active-text-color="#ffd04b"
@@ -29,12 +30,12 @@ import store from "@/store/index";
       :collapse="isCollapse"
       :collapse-transition="false"
   >
-    <el-menu-item index="/Home" style="font-size: 18px">
+    <el-menu-item index="/Admin/adminUser" style="font-size: 18px">
       <i class="el-icon-s-home"></i>
-      <span slot="title">首页</span>
+      <span slot="title">用户管理</span>
     </el-menu-item>
 
-    <el-menu-item index="/One" style="font-size: 18px">
+    <el-menu-item index="/Admin/adminCategory" style="font-size: 18px">
       <i class="el-icon-s-grid"></i>
       <span slot="title">导航一</span>
     </el-menu-item>
