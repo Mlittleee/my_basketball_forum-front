@@ -22,6 +22,7 @@
     <div>
       <i class="el-icon-guide" style="font-size: 26px" @click="collapse"></i>
     </div>
+
     <div style="flex:1;text-align: center;font-size: 32px;">
       <span>扑虎篮球论坛管理员后台</span>
     </div>
