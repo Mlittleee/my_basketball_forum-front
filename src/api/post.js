@@ -7,7 +7,7 @@ import {post,get} from '@/request/request'
 //         params: { pageNo: pageNo, size: size ,tab: tab}
 //     }))
 // }
-export const getList=(param)=>get('/post/list',param)//传参传的是当前的页号和每一页的帖子大小
+export const getList=(param)=>post('/post/list',param)//传参传的是当前的页号和每一页的帖子大小
 
 // 发布帖子
 // export function up(topic) {

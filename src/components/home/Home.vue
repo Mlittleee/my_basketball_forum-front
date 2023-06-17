@@ -1,12 +1,12 @@
 <script>
 import Footer from "@/components/home/Footer.vue";
 import Header from "@/components/home/Header.vue";
-//import Post_list from "@/components/home/Post_list.vue";
+import Post_list from "@/components/home/Post_list.vue";
 import CardBar from "@/components/home/CardBar.vue";
 
   export default {
     name: 'home',
-    components: {Footer, Header,  CardBar},
+    components: {Footer, Header, Post_list, CardBar},
     data() {
       return {
 
