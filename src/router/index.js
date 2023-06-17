@@ -2,7 +2,7 @@ import VueRouter from "vue-router";
 import Login from "@/components/user/Login.vue";
 import Admin from "@/components/admin/Admin.vue";
 import Home from "@/components/home/Home.vue";
-import myEditor from "@/components/home/myEditor.vue";
+import Editor from "@/components/home/Editor.vue";
 import MainUser from "@/components/admin/MainUser.vue";
 import MainPost from "@/components/admin/MainPost.vue";
 import MainComment from "@/components/admin/MainComment.vue";
@@ -87,7 +87,7 @@ const routes = [
     //富文本编辑器
     {
         path: "/editor",
-        component: myEditor
+        component: Editor
     },
     //用户中心
     {

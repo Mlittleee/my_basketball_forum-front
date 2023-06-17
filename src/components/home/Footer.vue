@@ -5,8 +5,11 @@
           <span id="txt">简洁、实用、美观</span>
 
           <span style="float: right">
-            <router-link :to="{path:'/Admin'}">
+            <router-link v-if="isAdmin===0" :to="{path:'/Admin'}">
               管理员登录
+            </router-link>
+            <router-link v-else :to="{path:'/Home'}">
+              你还不是管理员哦
             </router-link>
             |
             <a href="/?lang=zh_CN">中文</a> |
@@ -32,6 +35,7 @@
 
 <script>
 import BackTop from './Backtop.vue';
+import store from "../../store/index";
 
 export default {
   name: "Footer",
@@ -40,6 +44,7 @@ export default {
     return {
       title: "© " + new Date().getFullYear() + 'mhc',
       author: 'mhc',
+      isAdmin: store.state.user.roleId
     };
   },
 };

@@ -1,5 +1,6 @@
 <script>
 import {mapMutations} from "vuex";
+import store from "../../store/index";
 
 export default {
   name: "Header",
@@ -7,6 +8,7 @@ export default {
     return {
       activeIndex: '1',
       activeNames: ['1'],
+      isAdmin: store.state.user.roleId
     }
   },
   methods: {
@@ -20,7 +22,13 @@ export default {
       this.$router.push("/Login");
     },
     enterAdmin() {
-      this.$router.push("/Admin");
+      if (this.isAdmin === 0) {
+        this.$message({message: "进入管理员后台", type: "success",});
+        this.$router.push("/Admin");
+      }
+      else {
+        this.$message({message: "您不是管理员，无法进入管理员后台", type: "error",});
+      }
     },
     handleSelect(key) {
       switch (key) {
