@@ -1,5 +1,5 @@
 <script>
-//添加编辑器功能
+//使用对话框来进一步确认消息
 export default {
   name: "Editor",
   data() {
