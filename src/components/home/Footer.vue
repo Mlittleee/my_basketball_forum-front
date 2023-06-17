@@ -5,7 +5,7 @@
           <span id="txt">简洁、实用、美观</span>
 
           <span style="float: right">
-            <router-link :to="{path:'/Index'}">
+            <router-link :to="{path:'/Admin'}">
               管理员登录
             </router-link>
             |
@@ -17,12 +17,12 @@
         <div>
           <span>{{ title }} ALL RIGHTS RESERVED</span>
           <div style="float: right">
-
-              <div>
-                <span style="font-size: 18px">Design</span>
-                <span >{{ author }}</span>
-              </div>
-
+            <template>
+              <b-taglist attached>
+                <b-tag type="is-dark" size="is-normal">Design</b-tag>
+                <b-tag type="is-info" size="is-normal">{{ author }}</b-tag>
+              </b-taglist>
+            </template>
           </div>
         </div>
       </div>
