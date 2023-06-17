@@ -47,7 +47,7 @@ export default {
           this.$router.push("/Home/Wilkins"); // 跳转到 NBA 页面
           break;
         case '6':
-          this.$router.push("/Home/Community"); // 跳转到 NBA 页面
+          this.$router.push("/Community"); // 跳转到 NBA 页面
           break;
       }
     }

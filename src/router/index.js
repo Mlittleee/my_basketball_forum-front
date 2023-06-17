@@ -16,7 +16,7 @@ import UserCenter from "@/components/user/UserCenter.vue";
 import HomeNBA from "@/components/home/Category/NBA.vue";
 import HomeCBA from "@/components/home/Category/CBA.vue";
 import HomeCUBA from "@/components/home/Category/CUBA.vue";
-import Community from "@/components/home/Category/Community.vue";
+import Community from "@/components/home/Community.vue";
 import HomeWilkins from "@/components/home/Category/Wilkins.vue";
 import Carousel from "@/components/home/Category/Carousel.vue";
 
@@ -50,10 +50,6 @@ const routes = [
                 component: HomeCUBA
             },
             {
-                path: "/Home/Community",
-                component: Community
-            },
-            {
                 path: "/Home/Wilkins",
                 component: HomeWilkins
             },
@@ -62,6 +58,11 @@ const routes = [
                 component: Carousel
             }
         ]
+    },
+    //社区
+    {
+        path: "/Community",
+        component: Community
     },
     // 后台管理系统首页
     {
