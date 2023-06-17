@@ -1,10 +1,12 @@
 <script>
 import Footer from "@/components/home/Footer.vue";
 import Header from "@/components/home/Header.vue";
+//import Post_list from "@/components/home/Post_list.vue";
+import CardBar from "@/components/home/CardBar.vue";
 
   export default {
     name: 'home',
-    components: {Footer, Header},
+    components: {Footer, Header,  CardBar},
     data() {
       return {
 
@@ -30,9 +32,14 @@ import Header from "@/components/home/Header.vue";
       </el-carousel>
     </div>
 
-    <div>
+    <div class="columns">
+      <div class="column is-three-quarters">
+        <Post_list></Post_list>
+      </div>
 
-
+      <div class="column">
+        <CardBar></CardBar>
+      </div>
     </div>
 
     <div>
