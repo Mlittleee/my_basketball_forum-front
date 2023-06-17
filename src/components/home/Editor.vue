@@ -1,5 +1,5 @@
 <script>
-
+//阻止非管理员进入后台
 export default {
   name: "Editor",
   data() {
