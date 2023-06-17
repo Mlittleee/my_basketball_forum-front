@@ -13,6 +13,12 @@ import CUBA from "@/components/admin/Category/CUBA.vue";
 import CBA from "@/components/admin/Category/CBA.vue";
 import wilkins from "@/components/admin/Category/wilkins.vue";
 import UserCenter from "@/components/user/UserCenter.vue";
+import HomeNBA from "@/components/home/Category/NBA.vue";
+import HomeCBA from "@/components/home/Category/CBA.vue";
+import HomeCUBA from "@/components/home/Category/CUBA.vue";
+import Community from "@/components/home/Category/Community.vue";
+import HomeWilkins from "@/components/home/Category/Wilkins.vue";
+import Carousel from "@/components/home/Category/Carousel.vue";
 
 
 const routes = [
@@ -23,21 +29,39 @@ const routes = [
     },
     //登录页
     {
-        path: "/login",
+        path: "/Login",
         component: Login
     },
     //首页
     {
         path: "/Home",
-        component: Home
-        /*children: [
+        component: Home,
+        children: [
             {
-
+                path: "/Home/NBA",
+                component: HomeNBA
             },
             {
-
+                path: "/Home/CBA",
+                component: HomeCBA
             },
-        ]*/
+            {
+                path: "/Home/CUBA",
+                component: HomeCUBA
+            },
+            {
+                path: "/Home/Community",
+                component: Community
+            },
+            {
+                path: "/Home/Wilkins",
+                component: HomeWilkins
+            },
+            {
+                path: "/Home/Carousel",
+                component: Carousel
+            }
+        ]
     },
     // 后台管理系统首页
     {

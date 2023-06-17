@@ -58,7 +58,7 @@ export default {
   },
   methods: {
     onBack() {
-      this.$router.push("/Home");
+      this.$router.push("/Home/Carousel");
     }
   }
 }

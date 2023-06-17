@@ -14,7 +14,7 @@ import store from '../../store/index'
         this.$router.push('/user');
       },
       logOut() {
-        this.$router.push('/Home');
+        this.$router.push('/Home/Carousel');
       },
       collapse() {
         this.$emit('doCollapse')

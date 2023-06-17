@@ -52,7 +52,7 @@ export default {
             this.showDialog = false;
           })
           .catch((_) => {});
-      this.showDialog = false;
+      this.showDialog = true;
     },
     handleSubmit() {
       if (

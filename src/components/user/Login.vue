@@ -64,7 +64,7 @@ export default {
               //console.log(this.$store.state.user.token)
               this.$message({message: "登录成功", type: "success",});
               //进入首页
-              this.$router.push("/Home");
+              this.$router.push("/Home/Carousel");
 
             } else {
               this.$message({

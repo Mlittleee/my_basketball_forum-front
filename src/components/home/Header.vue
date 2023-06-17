@@ -7,7 +7,6 @@ export default {
   data() {
     return {
       activeIndex: '1',
-      activeNames: ['1'],
       isAdmin: store.state.user.roleId
     }
   },
@@ -33,22 +32,22 @@ export default {
     handleSelect(key) {
       switch (key) {
         case '1':
-          this.$router.push("/Home"); // 跳转到首页
+          this.$router.push("/Home/Carousel"); // 跳转到首页
           break;
         case '2':
-          this.$router.push("/Home/nba"); // 跳转到 NBA 页面
+          this.$router.push("/Home/NBA"); // 跳转到 NBA 页面
           break;
         case '3':
-          this.$router.push("/Home/cba"); // 跳转到 CBA 页面
+          this.$router.push("/Home/CBA"); // 跳转到 CBA 页面
           break;
         case '4':
-          this.$router.push("/Home/cuba"); // 跳转到首页
+          this.$router.push("/Home/CUBA"); // 跳转到首页
           break;
         case '5':
-          this.$router.push("/Home/yeqiudi"); // 跳转到 NBA 页面
+          this.$router.push("/Home/Wilkins"); // 跳转到 NBA 页面
           break;
         case '6':
-          this.$router.push("/Home/community"); // 跳转到 NBA 页面
+          this.$router.push("/Home/Community"); // 跳转到 NBA 页面
           break;
       }
     }
@@ -69,7 +68,7 @@ export default {
       </el-dropdown>
     </div>
 
-    <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect" style="background-color: darkred;color: #eeeeee">
+    <el-menu  default-active="1" class="el-menu-demo" mode="horizontal" style="background-color: darkred;color: #eeeeee" @select="handleSelect">
       <el-menu-item index="1" style="margin-left: 80px">首页</el-menu-item>
       <el-menu-item index="2" style="margin-left: 180px">NBA</el-menu-item>
       <el-menu-item index="3" style="margin-left: 180px">CBA</el-menu-item>
