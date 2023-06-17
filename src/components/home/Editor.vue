@@ -1,16 +1,20 @@
 <script>
 //使用对话框来进一步确认消息
-import {addPost} from "../../api/post";
+import {addPost} from "@/api/post";
+import {addTags} from "@/api/tag";
+import {getAllCategory} from "@/api/category";
 import store from "../../store/index";
+
 
 export default {
   name: "Editor",
   data() {
     return {
       showDialog: false,
+      //
       categories: [],
       //动态添加标签,这里更具在后端查询到的数据来动态显示
-      tags: ['标签1', '标签2', '标签3'],
+      tags: [],
       inputTag: "",
       inputTagVisible: false,
 
@@ -59,14 +63,31 @@ export default {
           this.assertNotEmpty(this.post.category, "请选择帖子分类") &&
           this.assertNotEmpty(this.post.description, "请填写帖子描述")
       ) {
+        //先添加帖子
         addPost(this.post)
             .then((res) => {
               this.$message({
                 message: "发布成功",
                 type: "success",
               });
-              this.showDialog = false;
-              this.$router.push("/home");
+              //再添加标签
+              console.log(res.data)
+              addTags({
+                tagList: this.tags,
+                postId: res.data
+              })
+                  .then((res) => {
+                    this.$message({
+                      message: "添加标签成功",
+                      type: "success",
+                    });
+                  })
+                  .catch((err) => {
+                    this.$message({
+                      message: "添加标签失败",
+                      type: "error",
+                    });
+                  });
             })
             .catch((err) => {
               this.$message({
@@ -74,7 +95,34 @@ export default {
                 type: "error",
               });
             });
+        //关闭对话框
+        this.showDialog = false;
+        //清空数据
+        this.post = {
+          title: "",
+          content: "",
+          category: "",
+          description: "",
+        };
+        this.tags = [];
       }
+    },
+    //获取所有分类
+    getAllCategory() {
+      getAllCategory()
+          .then((res) => {
+            console.log(res.data)
+            let CategoryArray = res.data;
+            for (let i = 0; i < CategoryArray.length; i++) {
+              this.categories.push( CategoryArray[i].name);
+            }
+          })
+          .catch((err) => {
+            this.$message({
+              message: "获取分类失败",
+              type: "error",
+            });
+          });
     },
 
     //动态添加标签
@@ -93,10 +141,14 @@ export default {
       let inputValue = this.inputTag;
       if (inputValue) {
         this.tags.push(inputValue);
+        console.log(this.tags)
       }
       this.inputTagVisible = false;
       this.inputTag = '';
     }
+  },
+  mounted() {
+    this.getAllCategory();
   },
 }
 </script>

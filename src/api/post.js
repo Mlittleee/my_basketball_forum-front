@@ -17,6 +17,7 @@ export const getList=(param)=>post('/post/list',param)//传参传的是当前的
 //         data: topic
 //     })
 // }
+// 发布帖子
 export const addPost=(param)=>post('/post/addPost',param)
 
 //查看文章详情功能
