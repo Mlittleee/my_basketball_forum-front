@@ -10,12 +10,12 @@ import CardBar from "@/components/home/CardBar.vue";
     data() {
       return {
         itemList: [
-          require("../../assets/carousel1.png"),
-          require("../../assets/carousel2.png"),
-          require("../../assets/carousel3.png"),
-          require("../../assets/carousel4.png"),
-          require("../../assets/carousel5.png"),
-          require("../../assets/carousel6.png"),
+          require("../../assets/imags/carousel1.png"),
+          require("../../assets/imags/carousel2.png"),
+          require("../../assets/imags/carousel3.png"),
+          require("../../assets/imags/carousel4.png"),
+          require("../../assets/imags/carousel5.png"),
+          require("../../assets/imags/carousel6.png"),
         ]
       }
     },

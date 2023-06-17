@@ -17,7 +17,7 @@ export default {
   <el-col :span="10" style="height: 100%" >
     <el-card :body-style="{ padding: '0px' }">
       <!--取出assets目录下的图片-->
-      <img src="../../../assets/CUBA.png" class="image">
+      <img src="../../../assets/imags/CUBA.png" class="image">
       <div style="padding: 10px;">
         <span style="font-size: 30px">CUBA</span>
         <div>这里用来放置简介</div>

@@ -183,7 +183,7 @@ import {addUser ,listUser, listUserByPage, updateUser} from "@/api/user";
       </el-select>-->
       <el-button icon="el-icon-search" circle style="margin-left: 5px" @click="loadPost"></el-button>
       <el-button type="info" round @click="requestParam">重置</el-button>
-      <el-button type="success" plain @click="add" style="margin-left: 830px">新增用户</el-button>
+      <el-button type="success" plain @click="add" style="margin-left: 700px">新增用户</el-button>
     </div>
     <el-table :data="tableData"
               :header-cell-style="{'background-color':'#F5F7FA','color':'#909399'}"
