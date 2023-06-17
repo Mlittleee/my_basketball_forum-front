@@ -17,7 +17,7 @@ export const getList=(param)=>post('/post/list',param)//传参传的是当前的
 //         data: topic
 //     })
 // }
-export const up=(param)=>post('/post/create',param)
+export const addPost=(param)=>post('/post/addPost',param)
 
 //查看文章详情功能
 export const getPost=(param)=>get('/post/content',param)

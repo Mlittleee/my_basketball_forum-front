@@ -1,5 +1,8 @@
 <script>
 //使用对话框来进一步确认消息
+import {addPost} from "../../api/post";
+import store from "../../store/index";
+
 export default {
   name: "Editor",
   data() {
@@ -16,7 +19,7 @@ export default {
         content: "",
         category: "",
         description: "",
-        author: "",
+        author: store.state.user.userName,
       }
     };
   },
@@ -54,10 +57,23 @@ export default {
     handleSubmit() {
       if (
           this.assertNotEmpty(this.post.category, "请选择帖子分类") &&
-          this.assertNotEmpty(this.post.description, "请填写帖子描述") &&
-          this.assertNotEmpty(this.post.author, "请填写帖子作者")
+          this.assertNotEmpty(this.post.description, "请填写帖子描述")
       ) {
-
+        addPost(this.post)
+            .then((res) => {
+              this.$message({
+                message: "发布成功",
+                type: "success",
+              });
+              this.showDialog = false;
+              this.$router.push("/home");
+            })
+            .catch((err) => {
+              this.$message({
+                message: "发布失败",
+                type: "error",
+              });
+            });
       }
     },
 
@@ -134,7 +150,7 @@ export default {
           <el-input type="textarea" v-model="post.description" rows="4"></el-input>
         </el-form-item>
         <el-form-item label="作者：">
-          <el-input type="text" v-model="post.author"></el-input>
+          <span style="font-size: 20px">{{post.author}}</span>
         </el-form-item>
       </el-form>
       <span slot="footer">

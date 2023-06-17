@@ -35,7 +35,7 @@ export default {
       </div>
 
       <div class="has-text-centered">
-        <b-button type="is-danger" tag="router-link" :to="{path:'/post/create'}" outlined>✍ 发表想法</b-button>
+        <b-button type="is-danger" tag="router-link" :to="{path:'/editor'}" outlined>✍ 发表想法</b-button>
       </div>
     </el-card>
 
