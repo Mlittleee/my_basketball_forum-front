@@ -30,9 +30,9 @@ export const setTagsList = (state, list) => {
 }
 
 //设置当前的帖子id
-export const setPostId = (state, id) => {
+/*export const setPostId = (state, id) => {
     state.postId = id;
-}
+}*/
 
 //删除动态标签数组中的某一项
 export const delTagsItem = (state, obj) => {
@@ -43,7 +43,5 @@ export const delTagsItem = (state, obj) => {
 //清空动态标签数组
 export const clearTags = (state) => {
     state.tagsList = [];
-    state.postId = '';
     localStorage.removeItem('tagsList');
-    localStorage.removeItem('postId');
 }

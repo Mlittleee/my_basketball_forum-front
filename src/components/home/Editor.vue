@@ -1,10 +1,11 @@
 <script>
 //使用对话框来进一步确认消息
-import {addPost} from "@/api/post";
+import {addPost, getLastPostId} from "@/api/post";
 import {addTags} from "@/api/tag";
 import {getAllCategory} from "@/api/category";
 import store from "../../store/index";
 import {mapMutations} from "vuex";
+import router from "@/router";
 
 
 export default {
@@ -12,26 +13,24 @@ export default {
   data() {
     return {
       showDialog: false,
-      //
       categories: [],
-      //动态添加标签,这里更具在后端查询到的数据来动态显示
-      tags: [],
-      //上面的标签是动态添加的，下面的标签是用户输入的，用来返回给前端用的
+      tags: [], //动态添加标签,这里更具在后端查询到的数据来动态显示
       inputTag: "",
       inputTagVisible: false,
+      postId: 0,
 
       post: {
         title: "",
         content: "",
-        category: "",
+        categoryName: "",
         description: "",
-        author: store.state.user.userName,
+        userId: store.state.user.userId,
       }
     };
   },
   methods: {
     //使用vuex中的state来处理动态标签的获取问题
-    ...mapMutations(["setTagsList", "delTagsItem", "setPostId", "clearTags"]),
+    ...mapMutations(["setTagsList", "delTagsItem", "clearTags"]),
 
     // 使用断言来保证内容为非空
     assertNotEmpty(target, msg) {
@@ -65,9 +64,10 @@ export default {
     },
     handleSubmit() {
       if (
-          this.assertNotEmpty(this.post.category, "请选择帖子分类") &&
+          this.assertNotEmpty(this.post.categoryName, "请选择帖子分类") &&
           this.assertNotEmpty(this.post.description, "请填写帖子描述")
       ) {
+        //this.post.category = this.categories.indexOf(this.post.category) + 1;
         //先添加帖子
         addPost(this.post)
             .then((res) => {
@@ -75,8 +75,6 @@ export default {
                 message: "发布成功",
                 type: "success",
               });
-               //将返回的postId存入vuex中
-               this.setPostId(res.data)
               addTags(store.state.tagsList)
                   .then((res) => {
                     this.$message({
@@ -103,13 +101,15 @@ export default {
         this.post = {
           title: "",
           content: "",
-          category: "",
+          categoryName: "",
           description: "",
+          userId: store.state.user.userId,
         };
         this.tags = [];
       }
+      router.push({path: "/Home/Carousel"})
       //清空vuex中的数据
-      this.clearTags()
+      //this.clearTags()
     },
     //获取所有分类
     getAllCategory() {
@@ -128,7 +128,19 @@ export default {
             });
           });
     },
-
+    //获取最后一个帖子的id
+    getLastPostId() {
+      getLastPostId()
+          .then((res) => {
+            this.postId = res.data;
+          })
+          .catch((err) => {
+            this.$message({
+              message: "获取帖子id失败",
+              type: "error",
+            });
+          });
+    },
     //动态添加标签
     handleTagClose(tag) {
       this.tags.splice(this.tags.indexOf(tag), 1);
@@ -150,7 +162,7 @@ export default {
         //将标签存入vuex中
         let tag = {
           name: inputValue,
-          postId: store.state.postId,
+          postId: this.postId + 1
         };
         let list = [tag]
         this.setTagsList(list)
@@ -161,7 +173,8 @@ export default {
   },
   mounted() {
     this.getAllCategory();
-    this.clearTags()
+    this.clearTags();
+    this.getLastPostId();
   },
 }
 </script>
@@ -201,12 +214,12 @@ export default {
         </el-form-item>
 
         <el-form-item label="分类：" style="width: 200px">
-          <el-select v-model="post.category" placeholder="请选择" style="width: fit-content">
+          <el-select v-model="post.categoryName" placeholder="请选择" style="width: fit-content">
             <el-option
-                v-for="(category,index) in categories"
+                v-for="(categoryName,index) in categories"
                 :key="index"
-                :label="category"
-                :value="category"
+                :label="categoryName"
+                :value="categoryName"
             ></el-option>
           </el-select>
         </el-form-item>

@@ -10,15 +10,10 @@ import {post,get} from '@/request/request'
 export const getList=(param)=>post('/post/list',param)//传参传的是当前的页号和每一页的帖子大小
 
 // 发布帖子
-// export function up(topic) {
-//     return request({
-//         url: '/post/create',
-//         method: 'post',
-//         data: topic
-//     })
-// }
-// 发布帖子
 export const addPost=(param)=>post('/post/addPost',param)
 
 //查看文章详情功能
 export const getPost=(param)=>get('/post/content',param)
+
+//查询最后一条的帖子id
+export const getLastPostId=(param)=>get('/post/selectLastPostId',param)
