@@ -4,6 +4,7 @@ import {addPost} from "@/api/post";
 import {addTags} from "@/api/tag";
 import {getAllCategory} from "@/api/category";
 import store from "../../store/index";
+import {mapMutations} from "vuex";
 
 
 export default {
@@ -15,6 +16,7 @@ export default {
       categories: [],
       //动态添加标签,这里更具在后端查询到的数据来动态显示
       tags: [],
+      //上面的标签是动态添加的，下面的标签是用户输入的，用来返回给前端用的
       inputTag: "",
       inputTagVisible: false,
 
@@ -28,6 +30,9 @@ export default {
     };
   },
   methods: {
+    //使用vuex中的state来处理动态标签的获取问题
+    ...mapMutations(["setTagsList", "delTagsItem", "setPostId", "clearTags"]),
+
     // 使用断言来保证内容为非空
     assertNotEmpty(target, msg) {
       if (!target) {
@@ -70,12 +75,9 @@ export default {
                 message: "发布成功",
                 type: "success",
               });
-              //再添加标签
-              console.log(res.data)
-              addTags({
-                tagList: this.tags,
-                postId: res.data
-              })
+               //将返回的postId存入vuex中
+               this.setPostId(res.data)
+              addTags(store.state.tagsList)
                   .then((res) => {
                     this.$message({
                       message: "添加标签成功",
@@ -106,6 +108,8 @@ export default {
         };
         this.tags = [];
       }
+      //清空vuex中的数据
+      this.clearTags()
     },
     //获取所有分类
     getAllCategory() {
@@ -128,6 +132,8 @@ export default {
     //动态添加标签
     handleTagClose(tag) {
       this.tags.splice(this.tags.indexOf(tag), 1);
+      //将标签从vuex中删除
+      this.delTagsItem(tag)
     },
 
     showTagInput() {
@@ -141,7 +147,13 @@ export default {
       let inputValue = this.inputTag;
       if (inputValue) {
         this.tags.push(inputValue);
-        console.log(this.tags)
+        //将标签存入vuex中
+        let tag = {
+          name: inputValue,
+          postId: store.state.postId,
+        };
+        let list = [tag]
+        this.setTagsList(list)
       }
       this.inputTagVisible = false;
       this.inputTag = '';
@@ -149,6 +161,7 @@ export default {
   },
   mounted() {
     this.getAllCategory();
+    this.clearTags()
   },
 }
 </script>
