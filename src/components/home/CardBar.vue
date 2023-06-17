@@ -14,9 +14,11 @@ export default {
   //定义异步请求
   methods: {
     fetchTodayTip(){
-      getTodayTip().then(response=>{
-        const {data} =response
-        this.tip= data
+      console.log("fetchTodayTip")
+
+      getTodayTip().then(res=>{
+        console.log(res)
+        this.tip= res.data
       })
     }
   }
@@ -40,7 +42,7 @@ export default {
 
     <el-card class="box-card" shadow="never" id="txt">
       <div slot="header">
-        <span>🥳 每日一句</span>
+        <span>🥳 篮球名言</span>
       </div>
       <div>
         <div class="has-text-left block">
