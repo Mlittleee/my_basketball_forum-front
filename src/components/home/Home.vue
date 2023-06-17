@@ -9,8 +9,14 @@ import CardBar from "@/components/home/CardBar.vue";
     components: {Footer, Header, Post_list, CardBar},
     data() {
       return {
-
-
+        itemList: [
+          require("../../assets/carousel1.png"),
+          require("../../assets/carousel2.png"),
+          require("../../assets/carousel3.png"),
+          require("../../assets/carousel4.png"),
+          require("../../assets/carousel5.png"),
+          require("../../assets/carousel6.png"),
+        ]
       }
     },
     methods: {
@@ -25,9 +31,9 @@ import CardBar from "@/components/home/CardBar.vue";
     <Header></Header>
 
     <div style="background-color: #eeeeee">
-      <el-carousel :interval="4000" type="card" height="200px">
-        <el-carousel-item v-for="item in 6" :key="item">
-          <h3 class="medium">{{ item }}</h3>
+      <el-carousel :interval="4000" type="card" height="280px" >
+        <el-carousel-item v-for="item in itemList" :key="item">
+          <el-image :src="item" alt="" fit="fill"></el-image>
         </el-carousel-item>
       </el-carousel>
     </div>
@@ -49,6 +55,7 @@ import CardBar from "@/components/home/CardBar.vue";
 </template>
 
 <style scoped>
+
 .el-carousel__item h3 {
   color: #475669;
   font-size: 14px;
@@ -64,5 +71,7 @@ import CardBar from "@/components/home/CardBar.vue";
 .el-carousel__item:nth-child(2n+1) {
   background-color: #d3dce6;
 }
+
+
 
 </style>
