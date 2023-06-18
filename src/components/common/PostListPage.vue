@@ -8,8 +8,8 @@ export default {
     return {
       postTitle: "",
       postList: [],
-      //标签列表
       tagList: [],
+      //标签列表
       pageSize: 10,
       pageNum: 1,
       total: 0,
@@ -28,8 +28,16 @@ export default {
       }).then(res => {
         this.postList = res.data;
         console.log(this.postList)
-        console.log(res.data)
         this.total = res.total;
+
+        //遍历postList
+        for (let i = 0; i < this.postList.length; i++) {
+          //获取标签列表
+          let myTags = this.postList[i].tags.slice(0, -1).split("/");
+          console.log(myTags)
+          this.tagList[this.postList[i].id] = myTags;
+          console.log(this.tagList)
+        }
       })
     },
     handleSizeChange(val) {
@@ -60,23 +68,24 @@ export default {
 <template>
   <div>
     <!--搜索框-->
-    <div style="text-align: left">
+    <div style="text-align: center">
       <el-input v-model="postTitle" placeholder="请输入要查询的帖子标题" prefix-icon="el-icon-search" style="width: 250px"
                 @keyup.enter.native="loadPostList"></el-input>
       <el-button icon="el-icon-search" circle style="margin-left: 5px" @click="loadPostList"></el-button>
       <el-button type="info" round @click="requestParam">重置</el-button>
     </div>
 
-    <el-row :gutter="20">
-      <el-col :span="14" :offset="2">
+    <el-row :gutter="20" >
+      <el-col :span="16" :offset="4" >
         <el-card v-for="post in postList" :key="post.id">
           <div slot="header">
             <router-link class="main-text" :to="'/post/' + post.id" v-html="post.title"></router-link>
             <div class="article-info">
 
               <!--使用v-for循环展示tagList中所有标签-->
-              <el-tag class="elTag" v-for="(tag,index) in tagList" :key="index" v-text="tag.name"
+              <el-tag class="elTag" v-for="(tag,index) in tagList[post.id]" :key="index" v-text="tag"
                       style="color: white" size="mini"></el-tag>
+
               浏览量：{{post.viewCount}}
               点赞量：{{post.likeCount}}
               <!--后续可以考虑做router-linker-->
@@ -89,26 +98,27 @@ export default {
           <i class="el-icon-date article-icon">{{dayjs(post.createTime).format("YYYY/MM/DD")}}</i>
         </el-card>
       </el-col>
+    </el-row>
+
       <!--      <el-col :span="6">
               <el-card>个人信息</el-card>
             </el-col>-->
-    </el-row>
-
     <!--分页-->
-    <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page="pageNum"
-        :page-sizes="[2,5,10]"
-        :page-size="pageSize"
-        layout="total, sizes, prev, pager, next, jumper"
-        :total="total">
+    <el-pagination class="page"
+                   @size-change="handleSizeChange"
+                   @current-change="handleCurrentChange"
+                   :current-page="pageNum"
+                   :page-sizes="[2,5,10]"
+                   :page-size="pageSize"
+                   layout="total, sizes, prev, pager, next, jumper"
+                   :total="total">
     </el-pagination>
   </div>
 
 </template>
 
 <style scoped>
+
 .item-box {
   position: relative;
   width: 100%;
