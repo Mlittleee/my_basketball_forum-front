@@ -185,6 +185,7 @@ import {addUser ,listUser, listUserByPage, updateUser} from "@/api/user";
       <el-button type="info" round @click="requestParam">重置</el-button>
       <el-button type="success" plain @click="add" style="margin-left: 700px">新增用户</el-button>
     </div>
+
     <el-table :data="tableData"
               :header-cell-style="{'background-color':'#F5F7FA','color':'#909399'}"
               border
@@ -226,6 +227,7 @@ import {addUser ,listUser, listUserByPage, updateUser} from "@/api/user";
         </template>
       </el-table-column>
     </el-table>
+
     <!--分页-->
     <el-pagination
         @size-change="handleSizeChange"

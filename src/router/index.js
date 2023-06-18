@@ -118,6 +118,11 @@ const routes = [
     {
         path: "/user",
         component: UserCenter
+    },
+    //测试帖子卡片
+    {
+        path: "/test",
+        component: () => import("../components/common/PostCard.vue")
     }
 ]
 

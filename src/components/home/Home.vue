@@ -22,6 +22,10 @@ import CardBar from "@/components/home/CardBar.vue";
   <div>
     <Header></Header>
 
+    <el-button>
+      <router-link to="/test">测试入口</router-link>
+    </el-button>
+
     <!-- 轮播图和其他板块之间标签和话题的切换 -->
     <router-view></router-view>
 

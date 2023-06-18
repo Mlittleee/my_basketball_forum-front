@@ -17,3 +17,6 @@ export const getPost=(param)=>get('/post/content',param)
 
 //查询最后一条的帖子id
 export const getLastPostId=(param)=>get('/post/selectLastPostId',param)
+
+//返回一条帖子卡片的信息
+export const getPostCard=(param)=>get('/post/getOnePost',param)
