@@ -23,3 +23,6 @@ export const getPostCard=(param)=>get('/post/getOnePost',param)
 
 //返回帖子列表然后进行分页展示
 export const getPostList=(param)=>post('/post/findPostCardPage',param)
+
+//查看帖子详情
+export const getPostDetail=(param)=>get('/post/getContent',param)

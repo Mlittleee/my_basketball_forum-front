@@ -19,6 +19,7 @@ import HomeCUBA from "@/components/home/Category/CUBA.vue";
 import Community from "@/components/home/Community.vue";
 import HomeWilkins from "@/components/home/Category/Wilkins.vue";
 import Carousel from "@/components/home/Category/Carousel.vue";
+import PostView from "@/components/common/PostView.vue";
 
 
 const routes = [
@@ -123,6 +124,14 @@ const routes = [
     {
         path: "/test",
         component: () => import("../components/common/PostListPage.vue")
+    },
+    //显示文章详情
+    {
+        path: "/post/:id",
+        component: PostView,
+        meta: {
+            title: "文章详情",
+        },
     }
 ]
 
