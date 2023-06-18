@@ -1,12 +1,13 @@
 <script>
 import Footer from "@/components/home/Footer.vue";
 import Header from "@/components/home/Header.vue";
-import Post_list from "@/components/home/Post_list.vue";
+//import Post_list from "@/components/home/Post_list.vue";
+import PostListPage from "@/components/common/PostListPage.vue";
 import CardBar from "@/components/home/CardBar.vue";
 
   export default {
     name: 'home',
-    components: {Footer, Header, Post_list, CardBar},
+    components: {PostListPage, Footer, Header, CardBar},
     data() {
       return {
 
@@ -31,7 +32,7 @@ import CardBar from "@/components/home/CardBar.vue";
 
     <div class="columns">
       <div class="column is-three-quarters">
-        <Post_list></Post_list>
+        <PostListPage></PostListPage>
       </div>
 
       <div class="column">

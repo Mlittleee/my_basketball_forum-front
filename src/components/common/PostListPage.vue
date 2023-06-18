@@ -76,7 +76,7 @@ export default {
     </div>
 
     <el-row :gutter="20" >
-      <el-col :span="16" :offset="4" >
+      <el-col :span="20" :offset="2" >
         <el-card v-for="post in postList" :key="post.id">
           <div slot="header">
             <router-link class="main-text" :to="'/post/' + post.id" v-html="post.title"></router-link>
