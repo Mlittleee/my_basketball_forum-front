@@ -122,7 +122,7 @@ const routes = [
     //测试帖子卡片
     {
         path: "/test",
-        component: () => import("../components/common/PostCard.vue")
+        component: () => import("../components/common/PostListPage.vue")
     }
 ]
 
