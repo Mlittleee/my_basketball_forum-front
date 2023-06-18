@@ -23,8 +23,8 @@ dayjs.extend(relativeTime)
 dayjs.locale('zh-cn') // use locale globally
 dayjs().locale('zh-cn').format() // use locale in a specific instance
 import 'highlight.js/styles/github.css' //css高亮
-import {VueShowdown} from "vue-showdown";   //markdown渲染
-Vue.component('Vue-Showdown', VueShowdown);
+import { VueShowdown }  from 'vue-showdown';   //markdown渲染
+Vue.component('VueShowdown', VueShowdown);
 import 'github-markdown-css/github-markdown.css'
 
 axios.defaults.withCredentials=true

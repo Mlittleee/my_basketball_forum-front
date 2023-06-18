@@ -25,4 +25,4 @@ export const getPostCard=(param)=>get('/post/getOnePost',param)
 export const getPostList=(param)=>post('/post/findPostCardPage',param)
 
 //查看帖子详情
-export const getPostDetail=(param)=>get('/post/getContent',param)
+export const getPostDetail=(param)=>get('/post/getPostDetail',param)

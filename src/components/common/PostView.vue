@@ -12,7 +12,7 @@ export default {
   },
   methods: {
     getPostView() {
-      getPostDetail({postID: this.$route.params.id})
+      getPostDetail({postId: this.$route.params.id})
           .then(res => {
             if (res.code === 200) {
               this.post = res.data;
