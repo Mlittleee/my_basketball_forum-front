@@ -1,11 +1,12 @@
 <script>
 //使用对话框来进一步确认消息
-import {addPost, getLastPostId} from "@/api/post";
+import {addPost, getLastPostId, refreshPostList} from "@/api/post";
 import {addTags} from "@/api/tag";
 import {getAllCategory} from "@/api/category";
 import store from "../../store/index";
 import {mapMutations} from "vuex";
 import router from "@/router";
+
 
 
 export default {
@@ -25,6 +26,11 @@ export default {
         categoryName: "",
         description: "",
         author: store.state.user.userName,
+        viewCount: 0,
+        likeCount: 0,
+        sign: "",
+        userId: store.state.user.userId,
+        createTime:""
       }
     };
   },
@@ -68,54 +74,67 @@ export default {
           this.assertNotEmpty(this.post.description, "请填写帖子描述")
       ) {
         //this.post.category = this.categories.indexOf(this.post.category) + 1;
-        //先添加帖子
+        //先设置时间
+        let date = new Date();
+        let year = date.getFullYear();
+        let month = date.getMonth() + 1;
+        //进行判断，如果月份小于10，则在前面加0
+        if (month < 10) {
+          month = "0" + month;
+        }
+        let strDate = date.getDate();
+        //进行判断，如果日期小于10，则在前面加0
+        if (strDate < 10) {
+          strDate = "0" + strDate;
+        }
+        this.post.createTime = year + "-" + month + "-" + strDate;
+        console.log(this.post.createTime)
         addPost(this.post)
             .then((res) => {
-              this.$message({
-                message: "发布成功",
-                type: "success",
-              });
-              addTags(store.state.tagsList)
-                  .then((res) => {
-                    this.$message({
-                      message: "添加标签成功",
-                      type: "success",
+              if (res.code === 200) {
+                this.$message({
+                  message: "发布成功",
+                  type: "success",
+                });
+                addTags(store.state.tagsList)
+                    .then((res) => {
+                      this.$message({
+                        message: "添加标签成功",
+                        type: "success",
+                      });
+
+                      //关闭对话框
+                      this.showDialog = false;
+                      //清空数据
+                      this.post = {
+                        title: "",
+                        content: "",
+                        categoryName: "",
+                        description: "",
+                        userId: store.state.user.userId,
+                      };
+                      this.tags = [];
+                      router.push({path: "/Home/Carousel"})
+                    })
+                    .catch((err) => {
+                      this.$message({
+                        message: "添加标签失败",
+                        type: "error",
+                      });
                     });
-                  })
-                  .catch((err) => {
-                    this.$message({
-                      message: "添加标签失败",
-                      type: "error",
-                    });
-                  });
+              } else {
+                this.$message({
+                  message: "已经存在同名帖子了，换个标题试试吧",
+                  type: "error",
+                });
+              }
             })
-            .catch((err) => {
-              this.$message({
-                message: "发布失败",
-                type: "error",
-              });
-            });
-        //关闭对话框
-        this.showDialog = false;
-        //清空数据
-        this.post = {
-          title: "",
-          content: "",
-          categoryName: "",
-          description: "",
-          userId: store.state.user.userId,
-        };
-        this.tags = [];
       }
-      router.push({path: "/Home/Carousel"})
-      //清空vuex中的数据
-      //this.clearTags()
     },
     //获取所有分类
     getAllCategory() {
       getAllCategory()
           .then((res) => {
-            console.log(res.data)
             let CategoryArray = res.data;
             for (let i = 0; i < CategoryArray.length; i++) {
               this.categories.push( CategoryArray[i].name);

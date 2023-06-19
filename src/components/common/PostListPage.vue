@@ -1,5 +1,5 @@
 <script>
-import {getPostList} from "@/api/post";
+import {getPostList, refreshPostList} from "@/api/post";
 import dayjs from "dayjs";
 
 export default {
@@ -17,6 +17,9 @@ export default {
   },
   methods: {
     dayjs,
+    refreshPost() {
+      refreshPostList()
+    },
     loadPostList() {
       getPostList({
         pageSize: this.pageSize,
@@ -59,6 +62,7 @@ export default {
   },
   beforeMount() {
     //获取一条帖子卡片的信息
+    this.refreshPost();
     this.loadPostList();
   },
 }
