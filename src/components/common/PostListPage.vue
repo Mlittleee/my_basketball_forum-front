@@ -1,5 +1,6 @@
 <script>
 import {getPostList, refreshPostList} from "@/api/post";
+import {updatePostLike} from "@/api/postcard";
 import dayjs from "dayjs";
 
 export default {
@@ -59,6 +60,30 @@ export default {
       this.postTitle = ""
       this.loadPostList();
     },
+    //点赞
+    updatePostLike(id) {
+      updatePostLike({postId: id})
+          .then((res) => {
+            if (res.code === 200) {
+              this.$message({
+                message: "点赞成功",
+                type: "success",
+              });
+              this.loadPostList();
+            } else {
+              this.$message({
+                message: "点赞失败",
+                type: "error",
+              });
+            }
+          })
+          .catch((err) => {
+            this.$message({
+              message: "点赞失败",
+              type: "error",
+            });
+          });
+    },
   },
   beforeMount() {
     //获取一条帖子卡片的信息
@@ -91,7 +116,7 @@ export default {
                       style="color: white" size="mini"></el-tag>
 
               浏览量：{{post.viewCount}}
-              点赞量：{{post.likeCount}}
+              <el-button @click="updatePostLike(post.id)"></el-button> 点赞量：{{post.likeCount}}
               <!--后续可以考虑做router-linker-->
               分类： {{post.categoryName}}
 

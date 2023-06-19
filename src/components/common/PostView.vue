@@ -1,5 +1,6 @@
 <script>
 import {getPostDetail} from "@/api/post";
+import {updatePostView} from "@/api/postcard";
 import showdownHighlight from "showdown-highlight";
 import dayjs from "dayjs";
 
@@ -8,7 +9,8 @@ export default {
   data() {
     return {
       post: {content: ""},
-      extensions: [showdownHighlight]
+      extensions: [showdownHighlight],
+      postId: this.$route.params.id
     };
   },
   methods: {
@@ -32,10 +34,15 @@ export default {
               message: "网络忙，文章详情获取失败"
             });
           });
+    },
+    //更新浏览量
+    updateViewCount(){
+      updatePostView({postId: this.$route.params.id})
     }
   },
   created() {
     this.getPostView();
+    this.updateViewCount();
   }
 };
 </script>
@@ -44,6 +51,7 @@ export default {
   <el-row>
     <el-col :span="20" :offset="2">
       <el-card class="markdown-body">
+        <el-button type="primary" icon="el-icon-arrow-left" @click="$router.go(-1)">返回</el-button>
         <h1>{{post.title}}</h1>
 <!--        <blockquote>{{'作者：' + post.author +
                     ' |创建时间：' + post.createTime +

@@ -1,6 +1,6 @@
 <script>
 //使用对话框来进一步确认消息
-import {addPost, getLastPostId, refreshPostList} from "@/api/post";
+import {addPost, getLastPostId} from "@/api/post";
 import {addTags} from "@/api/tag";
 import {getAllCategory} from "@/api/category";
 import store from "../../store/index";
