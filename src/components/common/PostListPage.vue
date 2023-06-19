@@ -143,7 +143,6 @@ export default {
                    :total="total">
     </el-pagination>
   </div>
-
 </template>
 
 <style scoped>

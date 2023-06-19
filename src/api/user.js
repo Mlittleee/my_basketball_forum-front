@@ -23,3 +23,6 @@ export const updateUser = (params) => post('/user/update', params)
 
 // 根据用户名模糊查询用户
 export const findUserByName = (params) => get('/user/query', params)
+
+// 根据用户id查询用户
+export const findUserById = (params) => get('/user/getUserById', params)

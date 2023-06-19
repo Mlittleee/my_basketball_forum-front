@@ -35,9 +35,8 @@
         <el-main>
           <div>
             <div class="PersonTop">
-              <div class="PersonTop_img">
-<!--                <img v-image-preview :src="avatar" />-->
-                <!--这里放置头像-->
+              <div class="PersonTop_img" >
+               <img src="../../assets/imags/userWilkins.png">
               </div>
 
               <div class="PersonTop_text">
@@ -62,33 +61,12 @@
                     >编辑</el-button>
                   </div>
 
-<!--                    <el-button
-                        v-else
-                        @click="follow"
-                        type="primary"
-                        size="medium"
-                        icon="el-icon-check"
-                        v-text="
-                isfollowid.indexOf(this.$route.params.id) > -1
-                  ? '已关注'
-                  : '关注'
-              "
-                    ></el-button>-->
-
                 </div>
                 <div class="user_num">
-<!--                  <div style="cursor: pointer" @click="myfan">
-                    <div class="num_number">{{ fanCounts }}</div>
-                    <span class="num_text">粉丝</span>
-                  </div>-->
-<!--                  <div style="cursor: pointer" @click="myfollow">
-                    <div class="num_number">{{ followCounts }}</div>
-                    <span class="num_text">关注</span>
-                  </div>-->
-<!--                  <div>
-                    <div class="num_number">{{ goodCounts }}</div>
-                    <span class="num_text">获赞</span>
-                  </div>-->
+
+<!--                    <div class="num_number">{{ goodCounts }}</div>
+                    <span class="num_text">获赞</span>-->
+                  </div>
                 </div>
               </div>
             </div>
@@ -108,7 +86,6 @@
                       item.label
                     }}</router-link>
                   </div> -->
-
                   <el-menu
                       router
                       active-text-color="#00c3ff"
@@ -122,12 +99,11 @@
                       <span slot="title">个人简介</span>
                     </el-menu-item>
 
-                    <el-menu-item
-                        index="myarticle"
-                        :route="{ name: 'myarticle', params: $route.params.id }"
-                    >
+                    <el-menu-item>
                       <i class="el-icon-edit-outline"></i>
-                      <span slot="title">发帖</span>
+                      <span slot="title">
+                        <router-link to="/editor">发帖</router-link>
+                      </span>
                     </el-menu-item>
 
                     <el-menu-item
@@ -137,21 +113,6 @@
                       <i class="el-icon-document"></i>
                       <span slot="title">收藏</span>
                     </el-menu-item>
-
-<!--                    <el-menu-item
-                        index="myfan"
-                        :route="{ name: 'myfan', params: $route.params.id }"
-                    >
-                      <i class="el-icon-tableware"></i>
-                      <span slot="title">粉丝</span>
-                    </el-menu-item>
-                    <el-menu-item
-                        index="myfollow"
-                        :route="{ name: 'myfollow', params: $route.params.id }"
-                    >
-                      <i class="el-icon-circle-plus-outline"></i>
-                      <span slot="title">关注</span>
-                    </el-menu-item>-->
                   </el-menu>
                 </el-card>
               </div>
@@ -160,28 +121,37 @@
               </div>
             </div>
             <personal-dia ref="dia" @flesh="reload" />
-          </div>
         </el-main>
 
       </el-container>
     </el-container>
   </div>
 </template>
-import store from "../../store/index.js";
 
 <script>
+import {findUserById} from "@/api/user";
+import store from "@/store/index";
+
 export default {
   name:"UserCenter",
   data() {
     return {
-      user:{}
-
+      user:{},
+      userId: this.$store.state.userId,
     }
   },
   methods: {
     onBack() {
       this.$router.push("/Home/Carousel");
-    }
+    },
+    getUser() {
+      findUserById({id: this.$store.state.userId}).then(res => {
+        this.user = res.data;
+      });
+    },
+  },
+  beforeMount() {
+    this.getUser();
   }
 }
 
@@ -267,7 +237,7 @@ export default {
 }
 
 .PersonTop_img {
-  width: 150px;
+  width: 120px;
   height: 120px;
   background-color: #8c939d;
   margin-right: 24px;

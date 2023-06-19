@@ -11,7 +11,8 @@ import store from '../../store/index'
     methods: {
       toUser() {
         //console.log(111);
-        this.$router.push('/user');
+        //携带参数跳转
+        this.$router.push({path: '/user'})
       },
       logOut() {
         this.$router.push('/Home/Carousel');
