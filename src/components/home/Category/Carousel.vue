@@ -1,7 +1,10 @@
 <script>
+import PostListPage from "@/components/common/PostListPage.vue";
+import CardBar from "@/components/home/CardBar.vue";
 
 export default {
   name: "Carousel",
+  components: {CardBar, PostListPage},
   data() {
     return {
       itemList: [
@@ -20,13 +23,25 @@ export default {
 </script>
 
 <template>
-  <div style="background-color: #eeeeee">
-    <el-carousel :interval="4000" type="card" height="280px" >
-      <el-carousel-item v-for="item in itemList" :key="item">
-        <el-image :src="item" alt="" fit="fill"></el-image>
-      </el-carousel-item>
-    </el-carousel>
+  <div>
+    <div style="background-color: #eeeeee">
+      <el-carousel :interval="4000" type="card" height="280px" >
+        <el-carousel-item v-for="item in itemList" :key="item">
+          <el-image :src="item" alt="" fit="fill"></el-image>
+        </el-carousel-item>
+      </el-carousel>
+    </div>
+
+    <div class="columns">
+      <div class="column is-three-quarters">
+        <PostListPage></PostListPage>
+      </div>
+
+      <div class="column">
+        <CardBar></CardBar>
+      </div>
   </div>
+</div>
 </template>
 
 <style scoped>

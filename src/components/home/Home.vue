@@ -30,16 +30,6 @@ import CardBar from "@/components/home/CardBar.vue";
     <!-- 轮播图和其他板块之间标签和话题的切换 -->
     <router-view></router-view>
 
-    <div class="columns">
-      <div class="column is-three-quarters">
-        <PostListPage></PostListPage>
-      </div>
-
-      <div class="column">
-        <CardBar></CardBar>
-      </div>
-    </div>
-
     <div>
       <Footer/>
     </div>

@@ -1,6 +1,7 @@
 <script>
 import {getPostDetail} from "@/api/post";
 import showdownHighlight from "showdown-highlight";
+import dayjs from "dayjs";
 
 export default {
   name: "PostView",
@@ -11,6 +12,7 @@ export default {
     };
   },
   methods: {
+    dayjs,
     getPostView() {
       getPostDetail({postId: this.$route.params.id})
           .then(res => {
@@ -46,7 +48,7 @@ export default {
 <!--        <blockquote>{{'作者：' + post.author +
                     ' |创建时间：' + post.createTime +
                     ' | 分类：' + post.categoryName }}</blockquote>-->
-        <blockquote>{{'作者：' + post.userName + ' | 创建时间：' + post.createTime + ' | 分类：' + post.categoryName }}</blockquote>
+        <blockquote>{{'作者：' + post.userName + ' | 创建时间：' + dayjs(post.createTime).format("YYYY/MM/DD") + ' | 分类：' + post.categoryName }}</blockquote>
         <VueShowdown
             :markdown="post.content"
             flavor="vanilla"

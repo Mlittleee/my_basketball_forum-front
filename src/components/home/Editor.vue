@@ -24,7 +24,7 @@ export default {
         content: "",
         categoryName: "",
         description: "",
-        userId: store.state.user.userId,
+        author: store.state.user.userName,
       }
     };
   },
