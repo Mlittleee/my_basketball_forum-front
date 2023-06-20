@@ -2,6 +2,7 @@
 import CardBar from "@/components/home/CardBar.vue";
 import {PostListByCategory} from "@/api/category";
 import {updatePostLike} from "@/api/postcard";
+import {getDescription} from "@/api/category";
 import dayjs from "dayjs";
 
 export default {
@@ -16,6 +17,8 @@ export default {
       pageSize: 10,
       pageNum: 1,
       total: 0,
+      //板块简介
+      description:''
     };
   },
   methods: {
@@ -78,10 +81,19 @@ export default {
             });
           });
     },
+      fetchDescription(){
+          getDescription({categoryName: 'NBA'}).then(res=>{
+              console.log(res)
+              this.description= res.data
+          })
+      }
   },
   beforeMount() {
     this.loadPostList();
   },
+  created() {
+      this.fetchDescription()
+  }
 }
 </script>
 
@@ -137,6 +149,16 @@ export default {
       </div>
       <div class="column">
         <CardBar></CardBar>
+          <el-card class="box-card" shadow="never" id="txt">
+              <div slot="header">
+                  <span>🏀 {{categoryName}}板块简介</span>
+              </div>
+              <div>
+                  <div class="has-text-left block">
+                      {{description}}
+                  </div>
+              </div>
+          </el-card>
       </div>
     </div>
   </div>
@@ -192,6 +214,10 @@ export default {
   color: #606266;
   font-size: 14px;
   margin-bottom: 10px;
+}
+
+#txt{
+    text-align:left;
 }
 
 </style>
