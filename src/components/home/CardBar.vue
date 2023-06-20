@@ -15,7 +15,6 @@ export default {
   methods: {
     fetchTodayTip(){
       getTodayTip().then(res=>{
-        console.log(res)
         this.tip= res.data
       })
     }

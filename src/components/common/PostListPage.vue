@@ -31,27 +31,24 @@ export default {
         }
       }).then(res => {
         this.postList = res.data;
-        console.log(this.postList)
         this.total = res.total;
 
         //遍历postList
         for (let i = 0; i < this.postList.length; i++) {
           //获取标签列表
           let myTags = this.postList[i].tags.slice(0, -1).split("/");
-          console.log(myTags)
           this.tagList[this.postList[i].id] = myTags;
-          console.log(this.tagList)
         }
       })
     },
     handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
+      //console.log(`每页 ${val} 条`);
       this.pageNum = 1;
       this.pageSize = val;
       this.loadPostList();
     },
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
+      //console.log(`当前页: ${val}`);
       this.pageNum = val;
       this.loadPostList();
     },

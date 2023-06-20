@@ -45,13 +45,13 @@ export default {
       })
     },
     handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
+      //console.log(`每页 ${val} 条`);
       this.pageNum = 1;
       this.pageSize = val;
       this.loadPostList();
     },
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
+      //console.log(`当前页: ${val}`);
       this.pageNum = val;
       this.loadPostList();
     },
@@ -81,17 +81,15 @@ export default {
     },
       fetchDescription(){
           getDescription({categoryName: 'CBA'}).then(res=>{
-              console.log(res)
+              //console.log(res)
               this.description= res.data
           })
       }
   },
   beforeMount() {
     this.loadPostList();
-  },
-    created() {
-        this.fetchDescription()
-    }
+    this.fetchDescription();
+  }
 }
 </script>
 
@@ -101,7 +99,7 @@ export default {
       <!--这里可以用来展示板块的描述-->
     </div>
 
-    <div class="columns" style="margin-left: -100px">
+    <div class="columns" style="margin-left: -140px">
       <div class="column is-three-quarters">
         <!--这里用来展示分页数据-->
         <div>
@@ -117,7 +115,7 @@ export default {
                             style="color: white" size="mini"></el-tag>
 
                     浏览量：{{post.viewCount}}
-                    <el-button @click="updatePostLike(post.id)"></el-button> 点赞量：{{post.likeCount}}
+                    <el-button @click="updatePostLike(post.id)"><i class="fal fa-thumbs-up" /></el-button> 点赞量：{{post.likeCount}}
                     <!--后续可以考虑做router-linker-->
                     分类： {{post.categoryName}}
 
@@ -213,8 +211,9 @@ export default {
   font-size: 14px;
   margin-bottom: 10px;
 }
+
 #txt{
-    text-align:left;
+  text-align:left;
 }
 
 </style>

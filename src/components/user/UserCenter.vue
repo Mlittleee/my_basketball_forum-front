@@ -101,9 +101,8 @@
 
                     <el-menu-item>
                       <i class="el-icon-edit-outline"></i>
-                      <span slot="title">
-                        <router-link to="/editor">发帖</router-link>
-                      </span>
+                      <el-button type="text"
+                          @click="toEditor">发帖</el-button>
                     </el-menu-item>
 
                     <el-menu-item
@@ -129,29 +128,25 @@
 </template>
 
 <script>
-import {findUserById} from "@/api/user";
 import store from "@/store/index";
 
 export default {
   name:"UserCenter",
   data() {
     return {
-      user:{},
-      userId: this.$store.state.userId,
+      user: store.state.user
     }
   },
   methods: {
     onBack() {
       this.$router.push("/Home/Carousel");
     },
-    getUser() {
-      findUserById({id: this.$store.state.userId}).then(res => {
-        this.user = res.data;
-      });
+    toEditor() {
+      this.$router.push("/editor");
     },
   },
   beforeMount() {
-    this.getUser();
+
   }
 }
 

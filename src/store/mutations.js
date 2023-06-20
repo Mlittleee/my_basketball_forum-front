@@ -16,8 +16,11 @@ export const logout = (state) => {
         userName: '',
         password: '',
         status: '',
+        email: '',
         roleId: '',
-        token: ''
+        token: '',
+        gender: 0,
+        sign: '',
     }
     //清空缓存
     localStorage.removeItem('user')

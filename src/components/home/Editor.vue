@@ -1,13 +1,11 @@
 <script>
 //使用对话框来进一步确认消息
-import {addPost, getLastPostId} from "@/api/post";
+import {addPost, getLastPostId, refreshPostList} from "@/api/post";
 import {addTags} from "@/api/tag";
 import {getAllCategory} from "@/api/category";
 import store from "../../store/index";
 import {mapMutations} from "vuex";
 import router from "@/router";
-
-
 
 export default {
   name: "Editor",
@@ -58,6 +56,10 @@ export default {
         this.showDialog = true;
       }
     },
+    //返回上一级
+    onBack() {
+      this.$router.go(-1);
+    },
     //关闭填写框
     handleCancel() {
       //和用户确认是否关闭
@@ -102,7 +104,7 @@ export default {
                         message: "添加标签成功",
                         type: "success",
                       });
-
+                      refreshPostList();
                       //关闭对话框
                       this.showDialog = false;
                       //清空数据
@@ -202,8 +204,11 @@ export default {
   <div class="app-container">
     <!--标题-->
     <div class="title-box">
-      <input type="text" class="title" v-model="post.title" style="font-size: 25px" placeholder="请输入帖子标题..." />
-      <el-button type="text" @click="openDialog" style="font-size: 20px">发布</el-button>
+      <input type="text" class="title" v-model="post.title" style="font-size: 25px; width: 1200px" placeholder="请输入帖子标题..." />
+        <span>
+          <el-button type="text" @click="openDialog" style="font-size: 20px; margin-left: -200px; width: 100px">发布</el-button>
+          <el-button type="text" @click="onBack" style="font-size: 20px">返回</el-button>
+        </span>
     </div>
 
     <!--编辑器-->

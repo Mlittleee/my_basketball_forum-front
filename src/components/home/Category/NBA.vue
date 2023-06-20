@@ -47,13 +47,13 @@ export default {
       })
     },
     handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
+      //console.log(`每页 ${val} 条`);
       this.pageNum = 1;
       this.pageSize = val;
       this.loadPostList();
     },
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
+      //console.log(`当前页: ${val}`);
       this.pageNum = val;
       this.loadPostList();
     },
@@ -103,7 +103,7 @@ export default {
       <!--这里可以用来展示板块的描述-->
     </div>
 
-    <div class="columns" style="margin-left: -100px">
+    <div class="columns" style="margin-left: -140px">
       <div class="column is-three-quarters">
         <!--这里用来展示分页数据-->
         <div>

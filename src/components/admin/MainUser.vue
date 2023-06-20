@@ -52,7 +52,6 @@ import {addUser ,listUser, listUserByPage, updateUser} from "@/api/user";
       },
       loadGet() {
         listUser().then(res => res.data).then(res => {
-          console.log(res)
         })
       },
       loadPost() {
@@ -64,7 +63,6 @@ import {addUser ,listUser, listUserByPage, updateUser} from "@/api/user";
             //sex: this.sex
           }
         }).then(res=>{
-          console.log(res)
           //if (res.data.=== 200) {
             this.tableData = res.data;
             this.total = res.total;
