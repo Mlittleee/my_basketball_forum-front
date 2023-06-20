@@ -117,7 +117,10 @@ export default {
                             style="color: white" size="mini"></el-tag>
 
                     浏览量：{{post.viewCount}}
-                    <el-button @click="updatePostLike(post.id)"></el-button> 点赞量：{{post.likeCount}}
+                    <el-button @click="updatePostLike(post.id)"
+                               style="border:none;"
+                               class="fa fa-thumbs-up" aria-hidden="true"></el-button>
+                    <i style="margin-left: -10px">点赞量：{{post.likeCount}}</i>
                     <!--后续可以考虑做router-linker-->
                     分类： {{post.categoryName}}
 
