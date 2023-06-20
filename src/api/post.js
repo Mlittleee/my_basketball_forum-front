@@ -29,3 +29,5 @@ export const getPostDetail=(param)=>get('/post/getPostDetail',param)
 
 //刷新帖子列表
 export const refreshPostList=(param)=>get('/post/refreshPostList',param)
+
+

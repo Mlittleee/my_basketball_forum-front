@@ -9,10 +9,10 @@
                  size="mini"
                  style="background-color: #2c3e50"
                  class="logout-btn"
-                 @click="onBack">
-        返回主页</el-button>
+                 @click="onBack">返回主页</el-button>
 
       <el-container class="content-container">
+        <!--侧边动态粒子特效-->
         <vue-particles
             class="userCenter-bg"
             color="#Ffffff"
@@ -35,93 +35,76 @@
         <el-main>
           <div>
             <div class="PersonTop">
+              <!--用户的头像-->
               <div class="PersonTop_img" >
                <img src="../../assets/imags/userWilkins.png">
               </div>
 
               <div class="PersonTop_text">
+                <!--用户的基本信息-->
                 <div class="user_text">
                   <div class="user_name">
-                    <span> {{ user.userName }} </span>
+                    <span style="margin-left: 100px">
+                      用户名： {{ user.userName }}
+                      <el-tag v-if="this.user.roleId === 0" style="margin-left: 50px"> 管理员</el-tag>
+                      <el-tag v-else style="margin-left: 50px">普通用户</el-tag>
+                    </span>
                   </div>
-                  <div class="user-v" >
-                    <span class="user-v-font">活跃用户</span>
+                  <div>
+                    <el-tag v-if="this.user.gender === 1" style="margin-left: 250px"><i class="fa fa-male" aria-hidden="true" /></el-tag>
+                    <el-tag v-else style="margin-left: 250px"><i class="fa fa-female" aria-hidden="true" /></el-tag>
                   </div>
-                  <div class="user_qianming">
-                    <span> {{ user.sign }}</span>
+                  <div>
+                    <span> 个性签名： {{ user.sign }}</span>
                   </div>
-                  <div class="user_anniu">
-                    <el-button
-                        class="el-icon-edit"
-                        v-if="this.$route.params.id === this.$store.state.user.id"
-                        type="primary"
-                        size="medium"
-                        plain
-                        @click="edit"
-                    >编辑</el-button>
-                  </div>
-
                 </div>
+                <!--用户的发帖数和获赞数-->
                 <div class="user_num">
-
-<!--                    <div class="num_number">{{ goodCounts }}</div>
-                    <span class="num_text">获赞</span>-->
+                  <div class="user_num_item">
+                    <span>发帖数</span><span> {{ postNum }}</span>
                   </div>
-                </div>
+
+                  <div class="user_num_item">
+                    <span>获赞数</span><span> {{ likeNum }}</span>
+                  </div>
               </div>
             </div>
+
+
             <div class="person_body">
               <div class="person_body_left">
                 <el-card class="box-card" :body-style="{ padding: '0px' }">
+
                   <div slot="header" class="clearfix">
-            <span class="person_body_list" style="border-bottom: none"
-            >个人中心服务</span>
+                    <span class="person_body_list" style="border-bottom: none">个人中心服务</span>
                   </div>
-                  <!-- <div
-                    class="person_body_list"
-                    v-for="(item, index) in person_body_list"
-                    :key="index"
-                  >
-                    <router-link :to="{ name: item.name, params: item.params }">{{
-                      item.label
-                    }}</router-link>
-                  </div> -->
-                  <el-menu
-                      router
-                      active-text-color="#00c3ff"
-                      class="el-menu-vertical-demo"
-                  >
-                    <el-menu-item
-                        index="info"
-                        :route="{ name: 'info', params: $route.params.id }"
-                    >
+
+                  <el-menu active-text-color="#00c3ff" class="el-menu-vertical-demo">
+                    <el-menu-item index="info">
                       <i class="el-icon-user"></i>
                       <span slot="title">个人简介</span>
                     </el-menu-item>
 
                     <el-menu-item>
                       <i class="el-icon-edit-outline"></i>
-                      <el-button type="text"
-                          @click="toEditor">发帖</el-button>
+                        <el-button type="text" @click="toEditor">发帖</el-button>
                     </el-menu-item>
 
-                    <el-menu-item
-                        index="mycollect"
-                        :route="{ name: 'mycollect', params: $route.params.id }"
-                    >
+                    <el-menu-item>
                       <i class="el-icon-document"></i>
                       <span slot="title">收藏</span>
                     </el-menu-item>
                   </el-menu>
                 </el-card>
               </div>
+
               <div class="person_body_right">
                 <router-view></router-view>
               </div>
             </div>
-            <personal-dia ref="dia" @flesh="reload" />
+            </div>
+          </div>
         </el-main>
-
       </el-container>
     </el-container>
   </div>
@@ -129,12 +112,21 @@
 
 <script>
 import store from "@/store/index";
+import tag from "buefy/dist/cjs/tag";
+import {getPostCount, getLikeCount} from "@/api/user";
 
 export default {
   name:"UserCenter",
+  computed: {
+    tag() {
+      return tag
+    }
+  },
   data() {
     return {
-      user: store.state.user
+      user: store.state.user,
+      postNum: 0,
+      likeNum: 0,
     }
   },
   methods: {
@@ -144,9 +136,22 @@ export default {
     toEditor() {
       this.$router.push("/editor");
     },
-  },
+    //取得用户的发帖数
+    getPostCount() {
+      getPostCount({id: this.user.userId}).then(res => {
+        this.postNum = res.data;
+      })
+      }
+    },
+    //取得用户的获赞数
+    getLikeCount() {
+      getLikeCount({id: this.user.userId}).then(res => {
+        this.likeNum = res.data;
+      })
+   },
   beforeMount() {
-
+    getPostCount();
+    getLikeCount();
   }
 }
 
@@ -199,12 +204,6 @@ export default {
   line-height: 160px;
   flex: 1;
   margin: 0 20px;
-}
-
-.search-input {
-  margin-bottom: 20px;
-  width: 250px;
-  margin-left:-100px;
 }
 
 .me-video-player {
@@ -262,21 +261,6 @@ export default {
 .user_name {
   font-weight: bold;
 }
-.user-v {
-  margin-bottom: -5px;
-}
-.user-v-img {
-  width: 15px;
-  height: 15px;
-}
-.user-v-font {
-  font-size: 15px;
-  color: #00c3ff;
-}
-.user_qianming {
-  font-size: 14px;
-  color: #999;
-}
 
 .user_num {
   width: 40%;
@@ -315,7 +299,7 @@ export default {
   display: flex;
   position: absolute;
   left: 50%;
-  transform: translateX(-42%);
+  transform: translateX(-50%);
   border-radius: 5px;
 }
 

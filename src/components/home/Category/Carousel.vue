@@ -22,9 +22,9 @@ export default {
 }
 </script>
 
-<template>
+<template style="background-color: #eeeeee">
   <div>
-    <div style="background-color: #eeeeee">
+    <div >
       <el-carousel :interval="4000" type="card" height="280px" >
         <el-carousel-item v-for="item in itemList" :key="item">
           <el-image :src="item" alt="" fit="fill"></el-image>

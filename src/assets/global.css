@@ -3,8 +3,7 @@
     padding: 0;
     box-sizing: border-box;
 }
-body,
-html {
+body{
     height: 100%;
     background-color: #f6f6f6;
     color: black;
