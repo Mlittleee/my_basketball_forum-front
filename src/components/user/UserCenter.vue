@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height: 10000px">
     <el-container class="container">
       <el-header style="height: 40px; background-color: darkred">
         <p class="title">个人中心</p>
@@ -80,8 +80,8 @@
                     <span class="person_body_list" style="border-bottom: none">个人中心服务</span>
                   </div>
 
-                  <el-menu active-text-color="#00c3ff" class="el-menu-vertical-demo">
-                    <el-menu-item index="info">
+                  <el-menu active-text-color="#00c3ff" class="el-menu-vertical-demo" :router="true">
+                    <el-menu-item index="/user/userDetail">
                       <i class="el-icon-user"></i>
                       <span slot="title">个人简介</span>
                     </el-menu-item>
@@ -91,7 +91,7 @@
                         <el-button type="text" @click="toEditor" style="margin-left: -20px">发帖</el-button>
                     </el-menu-item>
 
-                    <el-menu-item>
+                    <el-menu-item index="/user/likedPost">
                       <i class="el-icon-document"></i>
                       <span slot="title">你喜欢的都在这</span>
                     </el-menu-item>

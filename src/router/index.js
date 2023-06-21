@@ -1,4 +1,5 @@
 import VueRouter from "vue-router";
+import Vue from "vue";
 import Login from "@/components/user/Login.vue";
 import Admin from "@/components/admin/Admin.vue";
 import Home from "@/components/home/Home.vue";
@@ -21,7 +22,13 @@ import Community from "@/components/home/Community.vue";
 import HomeWilkins from "@/components/home/Category/Wilkins.vue";
 import Carousel from "@/components/home/Category/Carousel.vue";
 import PostView from "@/components/common/PostView.vue";
+import UserDetail from "@/components/user/UserDetail.vue";
+import LikedPost from "@/components/user/LikedPost.vue";
 
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+    return originalPush.call(this, location).catch(err => err)
+}
 
 const routes = [
     //重定向，默认登录页
@@ -123,7 +130,19 @@ const routes = [
     //用户中心
     {
         path: "/user",
-        component: UserCenter
+        component: UserCenter,
+        children: [
+            {
+                //个人简介
+                path: "/user/userDetail",
+                component: UserDetail
+            },
+            {
+                //点赞过的文章列表
+                path: "/user/likedPost",
+                component: LikedPost
+            }
+            ]
     },
     //测试帖子卡片
     {

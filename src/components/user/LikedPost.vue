@@ -1,9 +1,10 @@
 <script>
-import {getPostList, refreshPostList} from "@/api/post";
+import { refreshPostList} from "@/api/post";
+import {getLikePost} from "@/api/like";
 import {updatePostLike} from "@/api/postcard";
 import dayjs from "dayjs";
-import {addLike} from "@/api/like";
 import store from "@/store/index";
+import {addLike} from "@/api/like";
 
 export default {
   name: "PostListPage",
@@ -13,9 +14,6 @@ export default {
       postList: [],
       tagList: [],
       //标签列表
-      pageSize: 10,
-      pageNum: 1,
-      total: 0,
     };
   },
   methods: {
@@ -24,35 +22,24 @@ export default {
       refreshPostList()
     },
     loadPostList() {
-      getPostList({
-        pageSize: this.pageSize,
-        pageNum: this.pageNum,
-        param: {
-          title: this.postTitle
-          //sex: this.sex
-        }
+      getLikePost({
+          userId: store.state.user.userId,
       }).then(res => {
-        this.postList = res.data;
-        this.total = res.total;
-
-        //遍历postList
-        for (let i = 0; i < this.postList.length; i++) {
-          //获取标签列表
-          let myTags = this.postList[i].tags.slice(0, -1).split("/");
-          this.tagList[this.postList[i].id] = myTags;
+        if (res.code === 200) {
+          this.postList = res.data;
+          //遍历postList
+          for (let i = 0; i < this.postList.length; i++) {
+            //获取标签列表
+            let myTags = this.postList[i].tags.slice(0, -1).split("/");
+            this.tagList[this.postList[i].id] = myTags;
+          }
+        }else {
+          this.$message({
+            message: "你还没有点赞过任何帖子哦",
+            type: "error",
+          });
         }
       })
-    },
-    handleSizeChange(val) {
-      //console.log(`每页 ${val} 条`);
-      this.pageNum = 1;
-      this.pageSize = val;
-      this.loadPostList();
-    },
-    handleCurrentChange(val) {
-      //console.log(`当前页: ${val}`);
-      this.pageNum = val;
-      this.loadPostList();
     },
     //重置
     requestParam() {
@@ -97,19 +84,11 @@ export default {
 <template>
   <div>
     <div id="b">
-      <!--搜索框-->
-      <div style="text-align: center" >
-        <el-input v-model="postTitle" placeholder="请输入要查询的帖子标题" prefix-icon="el-icon-search" style="width: 250px"
-                  @keyup.enter.native="loadPostList"></el-input>
-        <el-button icon="el-icon-search" circle style="margin-left: 5px" @click="loadPostList"></el-button>
-        <el-button type="info" round @click="requestParam">重置</el-button>
-      </div>
     </div>
-
     <el-row :gutter="20" >
       <el-col :span="21" :offset="2" >
-        <el-card v-for="post in postList" :key="post.id">
-          <div slot="header">
+        <el-card v-for="post in postList" :key="post.id" style="height: 200px;opacity: 0.8">
+          <div slot="header" style="margin-top: -70px">
             <router-link class="main-text" :to="'/post/' + post.id" v-html="post.title"></router-link>
             <div class="article-info">
 
@@ -134,21 +113,6 @@ export default {
       </el-col>
     </el-row>
 
-      <!--      <el-col :span="6">
-              <el-card>个人信息</el-card>
-            </el-col>-->
-    <!--分页-->
-    <el-pagination
-                   style="color: darkred"
-                   class="page"
-                   @size-change="handleSizeChange"
-                   @current-change="handleCurrentChange"
-                   :current-page="pageNum"
-                   :page-sizes="[2,5,10]"
-                   :page-size="pageSize"
-                   layout="total, sizes, prev, pager, next, jumper"
-                   :total="total">
-    </el-pagination>
   </div>
 </template>
 
@@ -184,7 +148,7 @@ export default {
 }
 
 .article-info {
-  margin-top: 10px;
+  margin-top: -110px;
   color: #909399;
   font-size: 13px;
 }
@@ -198,11 +162,12 @@ export default {
 .article-icon .tag:hover {
   color: #409eff;
   cursor: pointer;
+  margin-top: -100px;
 }
 .tabloid {
   color: #606266;
   font-size: 14px;
-  margin-bottom: 10px;
+  margin-top: -150px;
 }
 
 #b{

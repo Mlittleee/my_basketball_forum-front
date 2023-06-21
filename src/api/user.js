@@ -21,6 +21,9 @@ export const listUserByPage = (params) => post('/user/findPage', params)
 // 编辑更新用户
 export const updateUser = (params) => post('/user/update', params)
 
+//在个人中心处修改编辑个人信息
+export const updateUserInfo = (params) => get('/user/updateUserInfo', params)
+
 // 根据用户名模糊查询用户
 export const findUserByName = (params) => get('/user/query', params)
 

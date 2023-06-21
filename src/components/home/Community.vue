@@ -113,26 +113,20 @@ export default {
 <!--                  @click="personal(item.id)"-->
 
                 <div class="user-card-title">
-                  <span class="user-card-name">{{ user.userName}}</span>
+                  <span class="user-card-name" style="font-size: 12px;font-weight: bolder;">用户名：{{ user.userName}}</span>
                 </div>
                 <div class="user-card-v" >
-<!--                  <img src="@/assets/img/V.png" class="user-card-v-img" />-->
                   <el-tag class="user-card-v-font" type="mini" style="background-color: dodgerblue">活跃用户</el-tag>
                 </div>
-                <div class="user-card-sign">
-                  <span class="user-card-signFont">{{ user.sign }}</span>
+                <div class="gender">
+                  <el-tag v-if="user.gender === 1" ><i class="fa fa-male" aria-hidden="true" /></el-tag>
+                  <el-tag v-else><i class="fa fa-female" aria-hidden="true" /></el-tag>
                 </div>
               </div>
-              <div class="user-card-button">
-                <el-button
-                  type="primary"
-                  size="medium"
-                  round
-                  >关注
-                </el-button>
-<!--                    v-if="$store.state.account !== item.account"
-                    @click="follow(item.id)"-->
-<!--                    v-text="isFollowd.indexOf(item.id) > -1 ? '已关注' : '关注'"-->
+              <div>
+                <div class="user-card-sign">
+                  <span class="user-card-signFont" style="font-size: 12px;font-weight: bolder">个性签名：{{ user.sign }}</span>
+                </div>
               </div>
             </div>
           </div>
@@ -214,7 +208,8 @@ h3 {
 }
 .user-card-title {
   margin-left: 5px;
-  margin-top: 25px;
+  margin-bottom: 10px;
+  margin-top: 10px;
   font-size: 10px;
   line-height: 14px;
   cursor: pointer;
@@ -228,8 +223,11 @@ h3 {
   font-size: 18px;
 }
 .user-card-v {
+  margin-top: -5px;
+  margin-bottom: -5px;
+}
+.gender{
   margin-top: 10px;
-  margin-bottom: -15px;
 }
 .user-card-v-font {
   font-size: 12px;
@@ -247,9 +245,5 @@ h3 {
   line-height: 14px;
   color: #999;
   margin-top: 5px;
-}
-.user-card-button {
-  margin-top: 35px;
-  margin-left: 100px;
 }
 </style>

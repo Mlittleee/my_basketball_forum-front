@@ -31,18 +31,6 @@ import {addUser ,listUser, listUserByPage, updateUser} from "@/api/user";
             {min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur'}
           ]
         }
-        //下拉框搜索
-        /*sex:"" ,
-        sexList: [
-          {
-            value: '1',
-            label: '男'
-          },
-          {
-            value: '2',
-            label: '女'
-          }
-        ]*/
       }
     },
     methods: {
@@ -106,7 +94,6 @@ import {addUser ,listUser, listUserByPage, updateUser} from "@/api/user";
             } else {
               this.doSave();
             }
-
           }else {
             console.log('error submit!!');
             return false;
@@ -119,14 +106,12 @@ import {addUser ,listUser, listUserByPage, updateUser} from "@/api/user";
         this.$nextTick(() => {
           this.form = row;
         })
-
       },
       onDelete(userId) {
         //删除功能
         console.log(userId)
         this.$axios.get(this.$httpUrl + "/user/delete?id=" + userId).then(res => {
           if (res.data.code === 200) {
-
             this.$message.success("删除用户成功！");
             this.loadPost()
           } else {
