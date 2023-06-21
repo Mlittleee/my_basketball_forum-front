@@ -31,18 +31,6 @@ import {addUser ,listUser, listUserByPage, updateUser} from "@/api/user";
             {min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur'}
           ]
         }
-        //下拉框搜索
-        /*sex:"" ,
-        sexList: [
-          {
-            value: '1',
-            label: '男'
-          },
-          {
-            value: '2',
-            label: '女'
-          }
-        ]*/
       }
     },
     methods: {
