@@ -1,4 +1,5 @@
 import VueRouter from "vue-router";
+import Vue from "vue";
 import Login from "@/components/user/Login.vue";
 import Admin from "@/components/admin/Admin.vue";
 import Home from "@/components/home/Home.vue";
@@ -21,6 +22,11 @@ import HomeWilkins from "@/components/home/Category/Wilkins.vue";
 import Carousel from "@/components/home/Category/Carousel.vue";
 import PostView from "@/components/common/PostView.vue";
 
+
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+    return originalPush.call(this, location).catch(err => err)
+}
 
 const routes = [
     //重定向，默认登录页
