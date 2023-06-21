@@ -1,5 +1,6 @@
 <script>
-import {getPostList, refreshPostList} from "@/api/post";
+import { refreshPostList} from "@/api/post";
+import {getLikePost} from "@/api/like";
 import {updatePostLike} from "@/api/postcard";
 import dayjs from "dayjs";
 import store from "@/store/index";
@@ -13,9 +14,6 @@ export default {
       postList: [],
       tagList: [],
       //标签列表
-      pageSize: 10,
-      pageNum: 1,
-      total: 0,
     };
   },
   methods: {
@@ -24,22 +22,22 @@ export default {
       refreshPostList()
     },
     loadPostList() {
-      getPostList({
-        pageSize: this.pageSize,
-        pageNum: this.pageNum,
-        param: {
+      getLikePost({
           userId: store.state.user.userId,
-          //sex: this.sex
-        }
       }).then(res => {
-        this.postList = res.data;
-        this.total = res.total;
-
-        //遍历postList
-        for (let i = 0; i < this.postList.length; i++) {
-          //获取标签列表
-          let myTags = this.postList[i].tags.slice(0, -1).split("/");
-          this.tagList[this.postList[i].id] = myTags;
+        if (res.code === 200) {
+          this.postList = res.data;
+          //遍历postList
+          for (let i = 0; i < this.postList.length; i++) {
+            //获取标签列表
+            let myTags = this.postList[i].tags.slice(0, -1).split("/");
+            this.tagList[this.postList[i].id] = myTags;
+          }
+        }else {
+          this.$message({
+            message: "你还没有点赞过任何帖子哦",
+            type: "error",
+          });
         }
       })
     },
