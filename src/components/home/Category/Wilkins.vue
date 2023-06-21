@@ -2,6 +2,8 @@
 import CardBar from "@/components/home/CardBar.vue";
 import {getDescription, PostListByCategory} from "@/api/category";
 import {updatePostLike} from "@/api/postcard";
+import {addLike} from "@/api/like";
+import store from "@/store/index";
 import dayjs from "dayjs";
 
 export default {
@@ -64,6 +66,7 @@ export default {
                 message: "点赞成功",
                 type: "success",
               });
+              addLike({userId:store.state.user.userId, postId: id})
               this.loadPostList();
             } else {
               this.$message({

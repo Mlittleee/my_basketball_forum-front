@@ -4,6 +4,8 @@ import {PostListByCategory} from "@/api/category";
 import {updatePostLike} from "@/api/postcard";
 import {getDescription} from "@/api/category";
 import dayjs from "dayjs";
+import {addLike} from "@/api/like";
+import store from "@/store/index";
 
 export default {
   name: "nbaCategory",
@@ -66,6 +68,7 @@ export default {
                 message: "点赞成功",
                 type: "success",
               });
+              addLike({userId:store.state.user.userId, postId: id})
               this.loadPostList();
             } else {
               this.$message({

@@ -2,6 +2,8 @@
 import {getPostList, refreshPostList} from "@/api/post";
 import {updatePostLike} from "@/api/postcard";
 import dayjs from "dayjs";
+import {addLike} from "@/api/like";
+import store from "@/store/index";
 
 export default {
   name: "PostListPage",
@@ -66,6 +68,7 @@ export default {
                 message: "点赞成功",
                 type: "success",
               });
+              addLike({userId:store.state.user.userId, postId: id})
               this.loadPostList();
             } else {
               this.$message({

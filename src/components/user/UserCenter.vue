@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height: 10000px">
     <el-container class="container">
       <el-header style="height: 40px; background-color: darkred">
         <p class="title">个人中心</p>
