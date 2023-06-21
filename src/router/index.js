@@ -134,7 +134,7 @@ const routes = [
             },
             {
                 //点赞过的文章列表
-                path: "/user/LikedPost",
+                path: "/user/likedPost",
                 component: LikedPost
             }
             ]

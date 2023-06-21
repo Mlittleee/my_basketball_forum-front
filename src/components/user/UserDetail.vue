@@ -1,46 +1,44 @@
 <template>
   <div>
-    <el-card>
-      <el-descriptions class="margin-top" title="简介" :column="2" border>
+    <el-card >
+      <el-descriptions class="margin-top" title="简介" :column="1" border style="margin-top: -60px;height: 700px" direction="vertical" size="medium">
         <template slot="extra">
-          <el-button type="primary" v-if="$route.params.id==$store.state.id" size="small">操作</el-button>
+          <el-button type="primary" size="small">编辑资料</el-button>
         </template>
-        <el-descriptions-item>
+
+<!--        <el-descriptions-item>
           <template slot="label">
             <i class="el-icon-picture-outline"></i>
             头像
           </template>
-          <img class="img" :src="avatar" alt="" />
-        </el-descriptions-item>
-        <el-descriptions-item>
-          <template slot="label">
-            <i class="el-icon-user"></i>
-            账户名
-          </template>
-          {{ account }}
-        </el-descriptions-item>
+          <img class="img" src="../../assets/imags/userWilkins.png" alt="" />
+        </el-descriptions-item>-->
+
         <el-descriptions-item>
           <template slot="label">
             <i class="el-icon-s-custom"></i>
-            昵称
+            用户名
           </template>
-          {{ nickname }}
+          {{ userName }}
         </el-descriptions-item>
+
         <el-descriptions-item>
           <template slot="label">
             <i class="el-icon-odometer"></i>
-            年龄
+            用户角色
           </template>
-          {{ age }}
+          {{ role }}
         </el-descriptions-item>
+
         <el-descriptions-item>
           <template slot="label">
             <i class="el-icon-male"></i>
             <i class="el-icon-female"></i>
             性别
           </template>
-          <el-tag size="small">{{ sex }}</el-tag>
+          <el-tag size="small">{{ gender }}</el-tag>
         </el-descriptions-item>
+
         <el-descriptions-item>
           <template slot="label">
             <i class="el-icon-message"></i>
@@ -48,48 +46,21 @@
           </template>
           {{ email }}
         </el-descriptions-item>
-        <el-descriptions-item>
-          <template slot="label">
-            <i class="el-icon-mobile-phone"></i>
-            手机号码
-          </template>
-          {{ mobilePhoneNumber }}
-        </el-descriptions-item>
-        <el-descriptions-item>
-          <template slot="label">
-            <i class="el-icon-location-outline"></i>
-            地区
-          </template>
-          {{ area }}
-        </el-descriptions-item>
-        <el-descriptions-item>
-          <template slot="label">
-            <i class="el-icon-office-building"></i>
-            职业
-          </template>
-          {{ work }}
-        </el-descriptions-item>
 
         <el-descriptions-item>
           <template slot="label">
-            <i class="el-icon-basketball"></i>
-            兴趣爱好
+            <i class="el-icon-mobile-phone"></i>
+            状态
           </template>
-          {{ hobby }}
+          {{ status }}
         </el-descriptions-item>
+
         <el-descriptions-item>
           <template slot="label">
             <i class="el-icon-magic-stick"></i>
             个性签名
           </template>
-          {{ design }}
-        </el-descriptions-item>
-        <el-descriptions-item>
-          <template slot="label">
-            <i class="el-icon-date"></i>
-            注册日期
-          </template>
-          {{ createDate | formatDate }}
+          {{ sign }}
         </el-descriptions-item>
       </el-descriptions>
     </el-card>
@@ -97,49 +68,40 @@
 </template>
 
 <script>
-import { userInfo } from "@/api/user.js";
+import { findUserById } from "@/api/user.js";
+import store from "@/store/index";
+
 export default {
   name: "Info",
   data() {
     return {
-      avatar: String,
-      account: String,
-      age: Number,
-      email: String,
-      mobilePhoneNumber: String,
-      area: String,
-      createDate: Number,
-      nickname: String,
-      sex: String,
-      work: String,
-      hobby: String,
-      design: String,
+      email: "",
+      role: "",
+      userName: "",
+      gender: "",
+      sign: "",
+      status: "",
     };
   },
-  mounted() {
-    this.load();
-  },
   methods: {
-    load() {
-      userInfo(this.$route.params.id)
+    loadUser() {
+      console.log(store.state.user.userId)
+      findUserById({id: store.state.user.userId})
           .then((res) => {
-            this.avatar = res.data.avatar;
-            this.account = res.data.account;
-            this.age = res.data.age;
             this.email = res.data.email;
-            this.mobilePhoneNumber = res.data.mobilePhoneNumber;
-            this.area = res.data.area;
-            this.createDate = res.data.createDate;
-            this.nickname = res.data.nickname;
-            this.sex = res.data.sex == 1 ? "男" : "女";
-            this.work = res.data.work;
-            this.design = res.data.design;
-            this.hobby = res.data.hobby;
+            this.userName = res.data.userName;
+            this.gender = res.data.gender === 1 ? "男" : "女";
+            this.sign = res.data.sign;
+            this.status = res.data.status === 1 ? "正常" : "禁止";
+            this.role = res.data.role === 0 ? "管理员" : "普通用户";
           })
           .catch((err) => {
             console.log(err);
           });
     },
+  },
+  mounted() {
+    this.loadUser();
   },
 };
 </script>
