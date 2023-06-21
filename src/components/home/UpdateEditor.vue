@@ -1,33 +1,35 @@
 <script>
 //使用对话框来进一步确认消息
-import {addPost, getLastPostId, refreshPostList} from "@/api/post";
+import {getLastPostId, refreshPostList, updatePostContent, getPostDetail} from "@/api/post";
 import {addTags} from "@/api/tag";
+import {getPostById, updatePost} from "@/api/postcard";
+
 import {getAllCategory} from "@/api/category";
 import store from "../../store/index";
 import {mapMutations} from "vuex";
 import router from "@/router";
 
 export default {
-  name: "Editor",
+  name: "UpdateEditor",
   data() {
     return {
       showDialog: false,
       categories: [],
-      tags: [], //动态添加标签,这里更具在后端查询到的数据来动态显示
+      tags: [],         //动态添加标签,这里更具在后端查询到的数据来动态显示
       inputTag: "",
       inputTagVisible: false,
-      postId: 0,
+      postId: this.$route.query.id,
+      content: "",
 
       post: {
+        id: this.$route.query.id,
         title: "",
-        content: "",
         categoryName: "",
         description: "",
-        author: store.state.user.userName,
+        userName: "",
         viewCount: 0,
         likeCount: 0,
-        sign: "",
-        userId: store.state.user.userId,
+        tags: "",
         createTime:""
       }
     };
@@ -51,7 +53,7 @@ export default {
     openDialog() {
       if (
           this.assertNotEmpty(this.post.title, "请填写帖子标题") &&
-          this.assertNotEmpty(this.post.content, "请填写帖子内容")
+          this.assertNotEmpty(this.content, "请填写帖子内容")
       ) {
         this.showDialog = true;
       }
@@ -59,6 +61,29 @@ export default {
     //返回上一级
     onBack() {
       this.$router.go(-1);
+    },
+    //获取帖子信息
+    getPostInfo() {
+      getPostById({postId: this.postId})
+          .then((res) => {
+            this.post = res.data;
+          })
+          .catch((err) => {
+            this.$message({
+              message: "获取帖子信息失败",
+              type: "error",
+            });
+          });
+      getPostDetail({postId: this.postId})
+          .then((res) => {
+            this.content = res.data.content;
+          })
+          .catch((err) => {
+            this.$message({
+              message: "获取帖子内容失败",
+              type: "error",
+            });
+          });
     },
     //关闭填写框
     handleCancel() {
@@ -76,23 +101,10 @@ export default {
           this.assertNotEmpty(this.post.description, "请填写帖子描述")
       ) {
         //this.post.category = this.categories.indexOf(this.post.category) + 1;
-        //先设置时间
-        let date = new Date();
-        let year = date.getFullYear();
-        let month = date.getMonth() + 1;
-        //进行判断，如果月份小于10，则在前面加0
-        if (month < 10) {
-          month = "0" + month;
-        }
-        let strDate = date.getDate();
-        //进行判断，如果日期小于10，则在前面加0
-        if (strDate < 10) {
-          strDate = "0" + strDate;
-        }
-        this.post.createTime = year + "-" + month + "-" + strDate;
-        addPost(this.post)
+        updatePost(this.post)
             .then((res) => {
               if (res.code === 200) {
+                updatePostContent({postId: this.postId, content: this.content})
                 this.$message({
                   message: "发布成功",
                   type: "success",
@@ -115,7 +127,7 @@ export default {
                         userId: store.state.user.userId,
                       };
                       this.tags = [];
-                      router.push({path: "/Home/Carousel"})
+                      router.push({path: "/Admin/adminPost"})
                     })
                     .catch((err) => {
                       this.$message({
@@ -191,10 +203,11 @@ export default {
       this.inputTag = '';
     }
   },
-  mounted() {
+  beforeMount() {
     this.getAllCategory();
     this.clearTags();
     this.getLastPostId();
+    this.getPostInfo();
   },
 }
 </script>
@@ -204,14 +217,14 @@ export default {
     <!--标题-->
     <div class="title-box">
       <input type="text" class="title" v-model="post.title" style="font-size: 25px; width: 1200px" placeholder="请输入帖子标题..." />
-        <span>
+      <span>
           <el-button type="text" @click="openDialog" style="font-size: 20px; margin-left: -200px; width: 100px">发布</el-button>
           <el-button type="text" @click="onBack" style="font-size: 20px">返回</el-button>
         </span>
     </div>
 
     <!--编辑器-->
-    <mavon-editor v-model="post.content" class="editor" />
+    <mavon-editor v-model="content" class="editor" />
 
     <!--发布文章信息填写框-->
     <el-dialog :title="`发布帖子：${post.title}`" :visible.sync="showDialog" width="30%">
@@ -251,7 +264,7 @@ export default {
           <el-input type="textarea" v-model="post.description" rows="4"></el-input>
         </el-form-item>
         <el-form-item label="作者：">
-          <span style="font-size: 20px">{{post.author}}</span>
+          <span style="font-size: 20px">{{post.userName}}</span>
         </el-form-item>
       </el-form>
       <span slot="footer">

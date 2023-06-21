@@ -1,7 +1,6 @@
 <script>
-import {findUserById} from "@/api/user";
-import {addPost ,getPostList, updatePost} from "@/api/post";
-
+import {getPostList} from "@/api/post";
+import {deletePost} from "@/api/postcard";
 
 export default {
   name: 'adminPost',
@@ -45,7 +44,21 @@ export default {
     },
     onDelete(postId) {
       //删除功能
-
+      deletePost({id: postId}).then(res => {
+        if (res.code === 200) {
+          this.$message.success("成功删除帖子");
+          this.loadPost();
+        } else {
+          this.$message.error(res.msg);
+        }
+      })
+    },
+    //编辑功能带id为参数进行路由跳转
+    onEdit(postId) {
+      this.$router.push({
+        path: '/updatePost',
+        query: {id: postId}
+      })
     },
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`);
@@ -99,14 +112,14 @@ export default {
         <template slot-scope="scope">
           <el-button
               size="medium"
-              @click="onEdit(scope.row)">编辑</el-button>
+              @click="onEdit(scope.row.id)">编辑</el-button>
           <el-popconfirm
               confirm-button-text='确定'
               cancel-button-text='不用了'
               icon="el-icon-info"
               icon-color="red"
               title="确定删除吗？"
-              @confirm="onDelete(scope.row.postId)">
+              @confirm="onDelete(scope.row.id)">
             <el-button size="medium" type="danger" slot="reference" style="margin-left: 25px">删除</el-button>
           </el-popconfirm>
         </template>

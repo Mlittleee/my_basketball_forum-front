@@ -24,6 +24,7 @@ import Carousel from "@/components/home/Category/Carousel.vue";
 import PostView from "@/components/common/PostView.vue";
 import UserDetail from "@/components/user/UserDetail.vue";
 import LikedPost from "@/components/user/LikedPost.vue";
+import UpdateEditor from "@/components/home/UpdateEditor.vue";
 
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location) {
@@ -126,6 +127,11 @@ const routes = [
     {
         path: "/editor",
         component: Editor
+    },
+    //更新（编辑）文章
+    {
+        path: "/updatePost",
+        component: UpdateEditor
     },
     //用户中心
     {
