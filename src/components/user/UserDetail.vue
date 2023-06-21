@@ -67,9 +67,9 @@
 
     <!--编辑用户信息弹出框-->
     <el-dialog
-        title="提示"
+        title="编辑用户信息"
         :visible.sync="DialogVisible"
-        width="30%"
+        width="50%"
         center>
       <el-form ref="form" :model="form" label-width="80px" :rules="rules">
         <el-form-item label="用户名" prop="userName">
@@ -82,11 +82,11 @@
           <el-col :span="15">
             <el-input v-model="form.sign"></el-input>
           </el-col>
-        </el-form-item>-->
+        </el-form-item>
 
-        <el-form-item label="性别" prop="gender">
+        <el-form-item label="性别" prop="gender" >
           <el-col :span="15">
-            <el-input v-model="form.gender"></el-input>
+            <el-input v-model="form.gender" placeholder="数字1代表男生，数字0代表女生"></el-input>
           </el-col>
         </el-form-item>
 
@@ -98,7 +98,7 @@
 
       </el-form>
       <span slot="footer" class="dialog-footer">
-    <el-button @click="DialogVisible = false">取 消</el-button>
+    <el-button @click="cancel()">取 消</el-button>
     <el-button type="primary" @click="save">确 定</el-button>
   </span>
     </el-dialog>
@@ -106,8 +106,9 @@
 </template>
 
 <script>
-import {findUserById, updateUser} from "@/api/user.js";
+import {findUserById, updateUserInfo} from "@/api/user.js";
 import store from "@/store/index";
+import {mapActions} from "vuex";
 
 export default {
   name: "UserDetail",
@@ -136,8 +137,8 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["constructUser"]),
     loadUser() {
-      console.log(store.state.user.userId)
       findUserById({id: store.state.user.userId})
           .then((res) => {
             this.email = res.data.email;
@@ -151,30 +152,59 @@ export default {
             console.log(err);
           });
     },
+    //取消后应该清空用户的消息
+    cancel() {
+      this.DialogVisible = false
+      this.$refs.form.resetFields();
+    },
     save() {
       //增加表单检查，如果不通过，不提交
       this.$refs.form.validate((valid) => {
         if (valid) {
-          //用id是否已经存在来判断是新增还是修改
           this.doEdit();
         }else {
           console.log('error submit!!');
+          //清空表单
+          this.$refs.form.resetFields();
           return false;
         }
       });
     },
     onEdit(){
-      this.DialogVisible=false
+      this.DialogVisible = true
     },
     doEdit() {
-      updateUser(this.form).then(res => {
+      updateUserInfo({
+        userId: store.state.user.userId,
+        userName: this.form.userName,
+        sign: this.form.sign,
+        gender: this.form.gender,
+        email: this.form.email,
+      }).then(res => {
         if (res.code === 200) {
           this.$message.success("修改用户成功！");
           this.DialogVisible = false
+          //同时需要更新vuex中的用户信息
+          let newUser = {
+            userId: store.state.user.userId,
+            userName: this.form.userName,
+            gender: this.form.gender,
+            email: this.form.email,
+            sign: this.form.sign,
+            status: store.state.user.status,
+            roleId: store.state.user.roleId,
+            token: store.state.user.token,
+            password: store.state.user.password,
+          }
+          this.constructUser(newUser)
+          //清空表单
+          this.$refs.form.resetFields();
           this.loadUser()
         } else {
           this.DialogVisible = false
           this.$message.error(res.msg);
+          //清空表单
+          this.$refs.form.resetFields();
         }
       })
     },
