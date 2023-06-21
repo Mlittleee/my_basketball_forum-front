@@ -44,7 +44,7 @@
     </el-menu-item>
 
     <el-menu-item index="/Admin/adminTip" style="font-size: 18px">
-      <i class="el-icon-chat-line-square"></i>
+      <i class="el-icon-trophy"></i>
       <span slot="title">名言管理</span>
     </el-menu-item>
 
