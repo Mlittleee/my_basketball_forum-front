@@ -99,10 +99,7 @@ export default {
 
 <template>
   <div>
-    <div>
-      <!--这里可以用来展示板块的描述-->
-    </div>
-
+  <div id="b">
     <div class="columns" style="margin-left: -140px">
       <div class="column is-three-quarters">
         <!--这里用来展示分页数据-->
@@ -165,6 +162,7 @@ export default {
       </div>
     </div>
   </div>
+  </div>
 </template>
 
 <style scoped>
@@ -223,4 +221,7 @@ export default {
     text-align:left;
 }
 
+#b{
+    opacity: 0.85;
+}
 </style>

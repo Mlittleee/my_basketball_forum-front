@@ -1,13 +1,13 @@
 <template>
   <div>
     <el-container class="container">
-      <el-header style="height: 40px; background-color: #2c3e50">
+      <el-header style="height: 40px; background-color: darkred">
         <p class="title">个人中心</p>
       </el-header>
 
       <el-button type="danger"
                  size="mini"
-                 style="background-color: #2c3e50"
+                 style="background-color: darkred; color: white; position: absolute; right: 20px; top: 10px;"
                  class="logout-btn"
                  @click="onBack">返回主页</el-button>
 
@@ -20,7 +20,7 @@
             :particlesNumber="300"
             shape-type="circle"
             :particleSize="4"
-            linesColor="#Ffffff"
+            linesColor="#Ff0000"
             :linesWidth="1"
             :lineLinked="true"
             :lineOpacity="0.4"
@@ -32,6 +32,7 @@
             clickMode="push"
         ></vue-particles>
 
+
         <el-main>
           <div>
             <div class="PersonTop">
@@ -42,7 +43,7 @@
 
               <div class="PersonTop_text">
                 <!--用户的基本信息-->
-                <div class="user_text">
+                <div class="user_text" style="margin-left: -200px">
                   <div class="user_name">
                     <span style="margin-left: 100px">
                       用户名： {{ user.userName }}
@@ -51,23 +52,23 @@
                     </span>
                   </div>
                   <div>
-                    <el-tag v-if="this.user.gender === 1" style="margin-left: 250px"><i class="fa fa-male" aria-hidden="true" /></el-tag>
-                    <el-tag v-else style="margin-left: 250px"><i class="fa fa-female" aria-hidden="true" /></el-tag>
+                    <el-tag v-if="this.user.gender === 1" style="margin-left: -65px"><i class="fa fa-male" aria-hidden="true" /></el-tag>
+                    <el-tag v-else style="margin-left: -65px"><i class="fa fa-female" aria-hidden="true" /></el-tag>
                   </div>
                   <div>
-                    <span> 个性签名： {{ user.sign }}</span>
+                    <span style="margin-left: 80px"> 个性签名： {{ user.sign }}</span>
+                  </div>
+                  <!--用户的发帖数和获赞数-->
+                  <div class="user_num">
+                    <div class="user_num_item">
+                      <span>发帖数</span><span> {{ postNum }}</span>
+                    </div>
+
+                    <div class="user_num_item" style="width: 150px">
+                      <span style="width: 50px">获赞数</span><span> {{ likeNum }}</span>
+                    </div>
                   </div>
                 </div>
-                <!--用户的发帖数和获赞数-->
-                <div class="user_num">
-                  <div class="user_num_item">
-                    <span>发帖数</span><span> {{ postNum }}</span>
-                  </div>
-
-                  <div class="user_num_item">
-                    <span>获赞数</span><span> {{ likeNum }}</span>
-                  </div>
-              </div>
             </div>
 
 
@@ -87,12 +88,12 @@
 
                     <el-menu-item>
                       <i class="el-icon-edit-outline"></i>
-                        <el-button type="text" @click="toEditor">发帖</el-button>
+                        <el-button type="text" @click="toEditor" style="margin-left: -20px">发帖</el-button>
                     </el-menu-item>
 
                     <el-menu-item>
                       <i class="el-icon-document"></i>
-                      <span slot="title">收藏</span>
+                      <span slot="title">你喜欢的都在这</span>
                     </el-menu-item>
                   </el-menu>
                 </el-card>
@@ -141,20 +142,19 @@ export default {
       getPostCount({id: this.user.userId}).then(res => {
         this.postNum = res.data;
       })
-      }
     },
     //取得用户的获赞数
     getLikeCount() {
       getLikeCount({id: this.user.userId}).then(res => {
         this.likeNum = res.data;
       })
-   },
+    }
+  },
   beforeMount() {
-    getPostCount();
-    getLikeCount();
+    this.getPostCount();
+    this.getLikeCount();
   }
 }
-
 </script>
 
 
@@ -162,14 +162,14 @@ export default {
 .userCenter-bg{
   width: 190px;
   height: 100%;
-  background-color: #2c3e50;
+  background-color: darkred;
 }
 
 .container {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #2c3e50 ;
+  background-color: darkred ;
 }
 
 .title {
@@ -180,7 +180,7 @@ export default {
   margin: auto 0;
 }
 .el-header {
-  background-color: #2c3e50;
+  background-color: darkred;
   color: #333;
   line-height: 60px;
   padding: 0;
@@ -219,7 +219,7 @@ export default {
 }
 .PersonTop {
   width: 1060px;
-  height: 140px;
+  height: 160px;
   padding-top: 10px;
   background-color: white;
   margin-top: -10px;
@@ -267,6 +267,8 @@ export default {
   height: 100%;
   display: flex;
   align-items: center;
+  margin-top: -20px;
+  margin-left: 190px;
 }
 
 .user_num > div {
@@ -295,7 +297,7 @@ export default {
 .person_body {
   width: 1060px;
   height: 600px;
-  margin-top: 140px;
+  margin-top: 160px;
   display: flex;
   position: absolute;
   left: 50%;

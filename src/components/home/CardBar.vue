@@ -25,7 +25,7 @@ export default {
 </script>
 
 <template>
-  <section>
+  <section id="building">
     <el-card class="box-card" shadow="never" id="txt1">
       <div slot="header">
         <span>💐 发帖</span>
@@ -61,6 +61,10 @@ export default {
 
 #txt{
   text-align:left;
+}
+
+#building{
+  opacity: 0.85;
 }
 
 </style>

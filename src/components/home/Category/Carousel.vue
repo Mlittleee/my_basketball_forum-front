@@ -33,7 +33,7 @@ export default {
     </div>
 
     <div class="columns">
-      <div class="column is-three-quarters">
+      <div class="column is-three-quarters" id="building">
         <PostListPage></PostListPage>
       </div>
 
@@ -60,6 +60,10 @@ export default {
 
 .el-carousel__item:nth-child(2n+1) {
   background-color: #d3dce6;
+}
+
+#building{
+  opacity: 0.85;
 }
 
 </style>

@@ -6,7 +6,6 @@ export default {
       currentDate: new Date()
     };
   }
-
 }
 </script>
 

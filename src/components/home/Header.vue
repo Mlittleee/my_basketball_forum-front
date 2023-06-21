@@ -56,9 +56,9 @@ export default {
 </script>
 
 <template>
-  <div>
-    <el-menu  default-active="1" class="el-menu-demo" mode="horizontal" style="background-color: darkred; weight: bolder; color:#ffffff" @select="handleSelect">
-      <el-menu-item index="1" style="margin-left: 60px">首页</el-menu-item>
+  <div id="b">
+    <el-menu  default-active="1" class="el-menu-demo" mode="horizontal" style="background-color: darkred;weight: bolder; color:#ffffff" @select="handleSelect">
+      <el-menu-item index="1" style="margin-left: 60px;color: #DAA520">首页</el-menu-item>
       <el-menu-item index="2" style="margin-left: 170px">NBA</el-menu-item>
       <el-menu-item index="3" style="margin-left: 170px">CBA</el-menu-item>
       <el-menu-item index="4" style="margin-left: 170px">CUBA</el-menu-item>

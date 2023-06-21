@@ -6,6 +6,7 @@
 body{
     height: 100%;
     background-color: #f6f6f6;
+    background-image: url(../assets/imags/allBackgroundImage.png);
     color: black;
     width: 100%;
     font-size: 14px;

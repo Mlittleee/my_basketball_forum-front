@@ -93,12 +93,14 @@ export default {
 
 <template>
   <div>
-    <!--搜索框-->
-    <div style="text-align: center">
-      <el-input v-model="postTitle" placeholder="请输入要查询的帖子标题" prefix-icon="el-icon-search" style="width: 250px"
-                @keyup.enter.native="loadPostList"></el-input>
-      <el-button icon="el-icon-search" circle style="margin-left: 5px" @click="loadPostList"></el-button>
-      <el-button type="info" round @click="requestParam">重置</el-button>
+    <div id="b">
+      <!--搜索框-->
+      <div style="text-align: center" >
+        <el-input v-model="postTitle" placeholder="请输入要查询的帖子标题" prefix-icon="el-icon-search" style="width: 250px"
+                  @keyup.enter.native="loadPostList"></el-input>
+        <el-button icon="el-icon-search" circle style="margin-left: 5px" @click="loadPostList"></el-button>
+        <el-button type="info" round @click="requestParam">重置</el-button>
+      </div>
     </div>
 
     <el-row :gutter="20" >
@@ -133,7 +135,9 @@ export default {
               <el-card>个人信息</el-card>
             </el-col>-->
     <!--分页-->
-    <el-pagination class="page"
+    <el-pagination
+                   style="color: darkred"
+                   class="page"
                    @size-change="handleSizeChange"
                    @current-change="handleCurrentChange"
                    :current-page="pageNum"
@@ -196,6 +200,10 @@ export default {
   color: #606266;
   font-size: 14px;
   margin-bottom: 10px;
+}
+
+#b{
+  opacity: 1;
 }
 
 </style>
