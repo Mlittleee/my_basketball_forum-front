@@ -118,7 +118,7 @@ export default {
                 <div class="user-card-v" >
                   <el-tag class="user-card-v-font" type="mini" style="background-color: dodgerblue">活跃用户</el-tag>
                 </div>
-                <div>
+                <div class="gender">
                   <el-tag v-if="user.gender === 1" ><i class="fa fa-male" aria-hidden="true" /></el-tag>
                   <el-tag v-else><i class="fa fa-female" aria-hidden="true" /></el-tag>
                 </div>
@@ -209,7 +209,7 @@ h3 {
 .user-card-title {
   margin-left: 5px;
   margin-bottom: 10px;
-  margin-top: 25px;
+  margin-top: 10px;
   font-size: 10px;
   line-height: 14px;
   cursor: pointer;
@@ -223,8 +223,11 @@ h3 {
   font-size: 18px;
 }
 .user-card-v {
-  margin-top: 5px;
+  margin-top: -5px;
   margin-bottom: -5px;
+}
+.gender{
+  margin-top: 10px;
 }
 .user-card-v-font {
   font-size: 12px;
