@@ -5,6 +5,7 @@ import Home from "@/components/home/Home.vue";
 import Editor from "@/components/home/Editor.vue";
 import MainUser from "@/components/admin/MainUser.vue";
 import MainPost from "@/components/admin/MainPost.vue";
+import MainTip from "@/components/admin/MainTip.vue";
 import MainComment from "@/components/admin/MainComment.vue";
 import MainCategory from "@/components/admin/MainCategory.vue";
 import NBA from "@/components/admin/Category/NBA.vue";
@@ -77,6 +78,10 @@ const routes = [
             {
                 path: "/Admin/adminPost",
                 component: MainPost
+            },
+            {
+                path:"/Admin/adminTip",
+                component: MainTip
             },
             {
                 path: "/Admin/adminComment",
