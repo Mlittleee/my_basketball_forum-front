@@ -33,7 +33,7 @@
                         icon="el-icon-info"
                         icon-color="red"
                         title="确定删除吗？"
-                        @confirm="onDelete(scope.row.postId)"
+                        @confirm="onDelete(scope.row.tipId)"
                     >
                         <el-button size="medium" type="danger" slot="reference" style="margin-left: 25px">删除</el-button>
                     </el-popconfirm>
@@ -84,15 +84,15 @@
 
 
 <script>
-import {addTip, delTip, listAllTip, listTipByPage, updateTip} from "@/api/tip";
+import {addTip, delTip, listTipByPage, updateTip} from "@/api/tip";
 
 export default {
     name: "MainTip",
     data(){
         return{
-            tableData:[{postId: 1,content:'fa',author:'csc'}],
+            tableData:[],
             form:{
-                postId:null,
+                tipId:null,
                 content:'',
                 author:''
             },
@@ -104,7 +104,7 @@ export default {
             rules: {
                 content: [
                     {required: true, message: '请输入名言内容', trigger: 'blur'},
-                    {min: 1, max: 30, message: '长度在 1 到 30 个字符', trigger: 'blur'}
+                    {min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur'}
                 ],
                 author: [
                     {required: true, message: '请输入作者', trigger: 'blur'},
@@ -116,10 +116,10 @@ export default {
     },
     methods:{
         //一进来，就加载所有的名言
-        loadGet() {
+        /*loadGet() {
             listAllTip().then(res => res.data).then(res => {
             })
-        },
+        },*/
         //点击分页之后的结果
         loadPost() {
             listTipByPage({
@@ -140,7 +140,7 @@ export default {
             this.$refs.form.validate((valid) => {
                 if (valid) {
                     //用id是否已经存在来判断是新增还是修改
-                    if (this.form.postId) {
+                    if (this.form.tipId) {
                         //编辑
                         this.doEdit();
                     } else {//新增
@@ -199,14 +199,13 @@ export default {
             })
         },
         //删除帖子
-        onDelete(postId) {
-            console.log(postId)
-            delTip(postId).then(res => {
-                if (res.data.code === 200) {
+        onDelete(tipId) {
+            delTip({tipId: tipId}).then(res => {
+                if (res.code === 200) {
                     this.$message.success("删除名言成功！");
                     this.loadPost()
                 } else {
-                    this.$message.error(res.data.msg);
+                    this.$message.error(res.msg);
                 }
             })
         },
@@ -223,7 +222,7 @@ export default {
         },
     },
     beforeMount() {
-        this.loadGet();
+        //this.loadGet();
         this.loadPost();
     }
 

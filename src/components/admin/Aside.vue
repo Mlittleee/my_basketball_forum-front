@@ -43,6 +43,11 @@
       <span slot="title">评论管理</span>
     </el-menu-item>
 
+    <el-menu-item index="/Admin/adminTip" style="font-size: 18px">
+      <i class="el-icon-chat-line-square"></i>
+      <span slot="title">名言管理</span>
+    </el-menu-item>
+
     <el-submenu index='/Admin/adminCategory'>
       <span slot="title" style="font-size: 18px"><i class="el-icon-loading" ></i>板块管理</span>
       <el-menu-item index='/Admin/adminCategory/NBA'>NBA</el-menu-item>
