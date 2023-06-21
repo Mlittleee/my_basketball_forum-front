@@ -9,3 +9,6 @@ export const PostListByCategory = (param)=>post('/category/findPostByCategory',p
 //返回板块描述信息
 export const getDescription = (param)=>get('/category/getCategoryDescription',param)
 
+//更改板块描述信息
+export const updateDescription = (param)=>get('/category/updateCategoryDescription',param)
+

@@ -1,12 +1,54 @@
 <script>
+import {getDescription, updateDescription} from "@/api/category";
+
 export default {
   name: "NBA",
   data() {
     return {
-      currentDate: new Date()
+      currentDate: new Date(),
+      description: "",
+      categoryName: "NBA",
+      DialogVisible:false,
+      rules: {
+        content: [
+          {required: true, message: '请输入简介内容', trigger: 'blur'},
+          {min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur'}
+        ],
+      }
     };
-  }
+  },
+  methods: {
+    /*onEdit(description) {
+      this.description = description;
+      this.updateDescription(this.categoryName, this.description);
+    },*/
+    // 获取分类简介
+    getDescription(categoryName) {
+      getDescription({categoryName: categoryName}).then(res => {
+        if (res.code === 200) {
+          this.description = res.data;
+        } else {
+          this.$message.error(res.msg);
+        }
+      })
+    },
+    // 更新分类简介
+    updateDescription(categoryName, description) {
+      updateDescription({categoryName: categoryName, description: description}).then(res => {
+        if (res.code === 200) {
+          this.DialogVisible = false;
+          this.$message.success("成功更新简介");
+        } else {
+          this.DialogVisible = false;
+          this.$message.error(res.msg);
+        }
+      })
+    }
+  },
+  mounted() {
+    this.getDescription(this.categoryName);
 }
+};
 </script>
 
 <template>
@@ -18,10 +60,10 @@ export default {
           <img src="../../../assets/imags/NBA.png" class="image">
           <div style="padding: 10px;">
             <span style="font-size: 30px">NBA</span>
-            <div>这里用来放置简介</div>
+            <div>{{description}}</div>
             <div class="bottomA clearfixA">
               <time class="timeA">{{ currentDate }}</time>
-              <el-button type="text" class="buttonA">操作按钮</el-button>
+              <el-button type="text" class="buttonA" @click="DialogVisible = true;">修改简介</el-button>
             </div>
           </div>
         </el-card>
@@ -42,6 +84,25 @@ export default {
       </el-col>
 
     </el-row>
+
+    <!--编辑板块简介弹出框-->
+    <el-dialog
+        title="编辑板块简介"
+        :visible.sync="DialogVisible"
+        width="30%"
+        center>
+      <el-form ref="form" label-width="80px" :rules="rules">
+        <el-form-item label="简介" prop="description">
+          <el-col :span="15">
+            <el-input v-model="description"></el-input>
+          </el-col>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="DialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="updateDescription(categoryName,description)">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
