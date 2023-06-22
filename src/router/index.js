@@ -25,6 +25,7 @@ import PostView from "@/components/common/PostView.vue";
 import UserDetail from "@/components/user/UserDetail.vue";
 import LikedPost from "@/components/user/LikedPost.vue";
 import UpdateEditor from "@/components/home/UpdateEditor.vue";
+import MyPost from "@/components/user/MyPost.vue";
 
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location) {
@@ -147,6 +148,11 @@ const routes = [
                 //点赞过的文章列表
                 path: "/user/likedPost",
                 component: LikedPost
+            },
+            {
+                //自己的文章列表
+                path: "/user/myPosts",
+                component: MyPost
             }
             ]
     },

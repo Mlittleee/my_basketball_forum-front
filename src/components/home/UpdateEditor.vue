@@ -127,7 +127,7 @@ export default {
                         userId: store.state.user.userId,
                       };
                       this.tags = [];
-                      router.push({path: "/Admin/adminPost"})
+                      this.$router.go(-1)
                     })
                     .catch((err) => {
                       this.$message({

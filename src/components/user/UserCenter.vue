@@ -95,6 +95,11 @@
                       <i class="el-icon-document"></i>
                       <span slot="title">你喜欢的都在这</span>
                     </el-menu-item>
+
+                    <el-menu-item index="/user/myPosts">
+                      <i class="el-icon-document"></i>
+                      <span slot="title">我的帖子</span>
+                    </el-menu-item>
                   </el-menu>
                 </el-card>
               </div>
@@ -346,7 +351,7 @@ export default {
 }
 
 .box-card {
-  height: 500px;
+  height: 600px;
 }
 
 /*ui样式*/
