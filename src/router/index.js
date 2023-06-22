@@ -155,6 +155,11 @@ const routes = [
         path: "/test",
         component: () => import("../components/common/PostListPage.vue")
     },
+    //评论区
+    /*{
+        path: "/comment",
+        component: () => import("../components/common/MyComment.vue")
+    },*/
     //显示文章详情
     {
         path: "/post/:id",
