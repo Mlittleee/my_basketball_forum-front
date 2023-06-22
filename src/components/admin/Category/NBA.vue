@@ -1,5 +1,5 @@
 <script>
-import {getDescription, updateDescription} from "@/api/category";
+import {getDescription, updateDescription, getHeat, getPercent} from "@/api/category";
 
 export default {
   name: "NBA",
@@ -9,6 +9,10 @@ export default {
       description: "",
       categoryName: "NBA",
       DialogVisible:false,
+      userPercent: 0,
+      postPercent: 0,
+      //热度数
+      hotNum: 0,
       rules: {
         content: [
           {required: true, message: '请输入简介内容', trigger: 'blur'},
@@ -43,10 +47,34 @@ export default {
           this.$message.error(res.msg);
         }
       })
-    }
+    },
+    //获取热度数
+    getHeat(categoryName) {
+      getHeat({categoryName: categoryName}).then(res => {
+        if (res.code === 200) {
+          this.hotNum = res.data;
+        } else {
+          this.$message.error(res.msg);
+        }
+      })
+    },
+    //获取占比
+    getPercent(categoryName) {
+      getPercent({categoryName: categoryName}).then(res => {
+        if (res.code === 200) {
+          console.log(res.data)
+          this.userPercent = res.data.userPercent;
+          this.postPercent = res.data.postPercent;
+        } else {
+          this.$message.error(res.msg);
+        }
+      })
+    },
   },
   mounted() {
     this.getDescription(this.categoryName);
+    this.getHeat(this.categoryName);
+    this.getPercent(this.categoryName);
 }
 };
 </script>
@@ -69,20 +97,20 @@ export default {
         </el-card>
       </el-col>
 
-      <!--根据后端传回的数据来动态生成指定数量的卡片-->
+      <!--根据后端传回的数据来可视化的数据-->
       <el-col :span="10" style="margin-left: 30px; width: 680px">
-        <el-card :body-style="{ padding: '0px' }">
-          <!--取出assets目录下的图片-->
-          <div slot="header" class="clearfix">
-            <span>这里的内容需要查询后端</span>
-            <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
-          </div>
-          <div>
-            {{ "简介" }}
-          </div>
-        </el-card>
+        <el-tag style="font-size: 25px">板块所属的帖子数占比</el-tag>
+        <el-progress type="circle" :percentage=userPercent></el-progress>
+        <el-tag style="font-size: 25px;margin-top: 60px" type="danger">板块发帖的的用户占比</el-tag>
+        <el-progress type="circle" :percentage=postPercent color="red"></el-progress>
       </el-col>
 
+      <el-row>
+        <!--使用v-for来循环生成五个火苗图案-->
+        <el-col :span="1" v-for="index in hotNum" :key="index" style="margin-top: 200px;margin-left: 10px">
+          <img src="../../../assets/imags/fire.png" class="image" alt="">
+        </el-col>
+      </el-row>
     </el-row>
 
     <!--编辑板块简介弹出框-->

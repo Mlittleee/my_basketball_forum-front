@@ -12,3 +12,8 @@ export const getDescription = (param)=>get('/category/getCategoryDescription',pa
 //更改板块描述信息
 export const updateDescription = (param)=>get('/category/updateCategoryDescription',param)
 
+//按照板块名称查询热度(返回[2,5]的热度值）
+export const getHeat = (param)=>get('/category/getCategoryHeatOrder',param)
+
+//根据板块名称返回帖子百分比和用户百分比
+export const getPercent = (param)=>get('/category/getCategoryPercentage',param)
