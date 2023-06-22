@@ -1,5 +1,6 @@
 <script>
 import {getDescription, updateDescription, getHeat, getPercent} from "@/api/category";
+import {refreshPostList} from "@/api/post";
 
 export default {
   name: "NBA",
@@ -27,6 +28,10 @@ export default {
       this.updateDescription(this.categoryName, this.description);
     },*/
     // 获取分类简介
+    //刷新帖子列表
+    refreshPost() {
+      refreshPostList()
+    },
     getDescription(categoryName) {
       getDescription({categoryName: categoryName}).then(res => {
         if (res.code === 200) {
@@ -63,8 +68,8 @@ export default {
       getPercent({categoryName: categoryName}).then(res => {
         if (res.code === 200) {
           console.log(res.data)
-          this.userPercent = res.data.userPercent;
-          this.postPercent = res.data.postPercent;
+          this.userPercent = res.data[0];
+          this.postPercent = res.data[1];
         } else {
           this.$message.error(res.msg);
         }
@@ -72,6 +77,7 @@ export default {
     },
   },
   mounted() {
+    this.refreshPost();
     this.getDescription(this.categoryName);
     this.getHeat(this.categoryName);
     this.getPercent(this.categoryName);
