@@ -19,9 +19,6 @@ const state = {
         token: ''
     },
 
-    //在发布文章时的帖子id
-    //postId: '',
-
     //动态标签数组
      tagsList: []
 }
