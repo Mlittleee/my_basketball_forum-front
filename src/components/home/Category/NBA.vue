@@ -103,11 +103,11 @@ export default {
 <template>
   <div>
   <div id="b">
-    <div class="columns" style="margin-left: -140px">
+    <div class="columns" style="margin-left: -150px">
       <div class="column is-three-quarters">
         <!--这里用来展示分页数据-->
         <div>
-          <el-row :gutter="20" >
+          <el-row :gutter="20" style="margin-left: 100px">
             <el-col :span="21" :offset="2" >
               <el-card v-for="post in postList" :key="post.id">
                 <div slot="header">

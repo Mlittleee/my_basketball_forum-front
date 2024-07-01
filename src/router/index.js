@@ -177,7 +177,8 @@ const routes = [
 ]
 
 const router = new VueRouter({
-    mode: "history",
+    // 此处之前为“history”模式，但是若是部署到服务器上则会出现各种问题，因此采用hash的模式
+    mode: "hash",
     routes
 })
 export default router;

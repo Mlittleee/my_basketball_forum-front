@@ -32,7 +32,7 @@ import store from '../../store/index'
     </div>
 
     <div style="flex:1;text-align: center;font-size: 32px;">
-      <span>扑虎篮球论坛管理员后台</span>
+      <span>曼巴篮球论坛管理员后台</span>
     </div>
     <el-dropdown>
       <!--这里使用vuex中的全局状态-->

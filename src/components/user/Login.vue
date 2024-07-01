@@ -2,7 +2,7 @@
   <div class="body">
     <div class="data" style="margin-left: 78%; margin-top: 10%">
       <div class="text">
-        <h1>扑虎社区</h1>
+        <h1>曼巴社区</h1>
       </div>
       <div class="form-data">
         <el-form ref="loginform" :model="form" :rules="rules">

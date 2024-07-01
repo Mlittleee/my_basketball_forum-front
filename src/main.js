@@ -30,6 +30,7 @@ import 'github-markdown-css/github-markdown.css'
 axios.defaults.withCredentials=true
 Vue.prototype.$axios = axios;
 Vue.prototype.$httpUrl = 'http://localhost:8088'
+// Vue.prototype.$httpUrl = '/api';
 Vue.prototype.dayjs = dayjs;//可以全局使用dayjs
 
 Vue.use(ElementUI, { size: 'large', zIndex: 3000 });  //Vue.use(ElementUI);
